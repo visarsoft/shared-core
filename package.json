@@ -1,0 +1,12 @@
+{
+  "name": "visar-shared",
+  "version": "1.0.0",
+  "description": "internal repository for shared modules",
+  "main": "index.js",
+  "repository": {
+    "url": "https://bitbucket.org/lito/visar-webapp-shared",
+    "type": "git"
+  },
+  "author": "RoMay <romay.ua@gmail.com>",
+  "license": "MIT"
+}
