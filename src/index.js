@@ -1,2 +1,2 @@
 export * from './utils';
-export default from './buildQuery';
+export default from './graphql/buildQuery';
