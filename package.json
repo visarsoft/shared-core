@@ -6,7 +6,7 @@
   "jsnext:main": "es/index.js",
   "scripts": {
     "lint": "eslint src",
-    "build": "rimraf lib/ && ./node_modules/.bin/babel src --out-dir lib",
+    "build": "./node_modules/.bin/babel src --out-dir lib",
     "prepublish": "npm run build"
   },
   "repository": {
