@@ -4,11 +4,16 @@
   "description": "internal repository for shared modules",
   "main": "./lib/index.js",
   "jsnext:main": "es/index.js",
+  "private": true,
   "scripts": {
     "lint": "eslint src --fix",
     "build": "./node_modules/.bin/babel src --out-dir lib",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postinstall": "npm run build"
   },
+  "pre-push": [
+    "lint"
+  ],
   "repository": {
     "url": "https://bitbucket.org/lito/visar-webapp-shared",
     "type": "git"
@@ -35,6 +40,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "flow-bin": "^0.52.0",
+    "pre-push": "^0.1.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "rimraf": "^2.6.1"
@@ -67,7 +73,12 @@
     "rules": {
       "jsx-a11y/href-no-hash": "off",
       "no-unexpected-multiline": 2,
-      "react/prefer-stateless-function": ["error", { "ignorePureComponents": true }],
+      "react/prefer-stateless-function": [
+        "error",
+        {
+          "ignorePureComponents": true
+        }
+      ],
       "react/jsx-filename-extension": [
         1,
         {
