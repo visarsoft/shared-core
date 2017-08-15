@@ -1,14 +1,25 @@
-let config;
+let config = null;
+
+const readAppConfig = () => {
+  try {
+    return require('./../../../config/visar.js').default;  
+  } catch (error) {
+    console.log('visar app config not found');
+  }
+}
 
 const getConfig = () => {
   const defaultConfig = {};
   const appConfig = (typeof __VSR_CONFIG__ !== 'undefined' && __VSR_CONFIG__) ||
-    (typeof __BROWSER__ == 'undefined' && __BROWSER__);
+    (typeof __BROWSER__ == 'undefined' && readAppConfig());
 
-  config = Object.assign({}, defaultConfig, appConfig);
-  return config;
+  return Object.assign({}, defaultConfig, appConfig);
 }
 
 export default () => {
-  return config || getConfig();
+  if (!config) {
+    config = getConfig();
+  }
+  console.log('DEBUG: config', config);
+  return config;
 };
