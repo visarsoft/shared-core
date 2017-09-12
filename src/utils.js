@@ -1,6 +1,7 @@
 // @flow
+import getConfig from './config';
 
-const API_BASE_URL = 'http://salabay-api.visarsoft.de';
+const { API_BASE_URL } = getConfig();
 
 export const getFetcher = (route: Object): any => {
   const defaultFetcher = () => () => Promise.resolve('DEFAULT Promise');
