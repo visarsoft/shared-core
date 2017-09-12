@@ -2,6 +2,7 @@ let config = null;
 
 const readAppConfig = () => {
   try {
+    // eslint-disable-next-line
     const appConfig = require('./../../../config/visar.js');
     return appConfig && appConfig.default;
   } catch (error) {
@@ -11,6 +12,7 @@ const readAppConfig = () => {
 
 const getConfig = () => {
   const defaultConfig = {};
+  // eslint-disable-next-line
   const appConfig = (typeof __VSR_CONFIG__ !== 'undefined' && __VSR_CONFIG__) ||
     (typeof __BROWSER__ === 'undefined' && readAppConfig());
 
