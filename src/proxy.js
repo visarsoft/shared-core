@@ -22,7 +22,7 @@ export default (app: Object) => {
       console.log('failed to build schema', req.query);
       return res.status(404).send();
     }
-    axios
+    return axios
       .post(`${API_BASE_URL}/graphql`, {
         query
       })
