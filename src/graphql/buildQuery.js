@@ -3,16 +3,17 @@ import eventsPage from './queries/eventsPage';
 
 const getSchema = name => {
   const schema = {
-    event_details: eventDetails,
-    page_events: eventsPage
+    page_events: eventsPage,
+    details_events: eventDetails
   };
   return schema[name];
 };
 
-const getDetailsQuery = name => {
-  const schema = getSchema(name);
-  return name && schema ?
-    `details: route(path: "/${name}") {
+const getDetailsQuery = (title, type) => {
+  const queryName = `details_${type}`;
+  const schema = getSchema(queryName);
+  return title && schema ?
+    `details: route(path: "/${title}") {
       entity {
         title
         ${schema}
@@ -20,11 +21,12 @@ const getDetailsQuery = name => {
     }` : '';
 };
 
-const getPageQuery = name => {
-  const pageName = `page_${name}`;
-  const schema = getSchema(pageName);
-  return name && schema ?
-    `page: nodeQuery(filter: {type: "${pageName}"}) {
+
+const getPageQuery = type => {
+  const queryName = `page_${type}`;
+  const schema = getSchema(queryName);
+  return type && schema ?
+    `page: nodeQuery(filter: {type: "${queryName}"}) {
       entities {
         ${schema}
       }
@@ -32,10 +34,12 @@ const getPageQuery = name => {
 };
 
 export default ({ type, title }) => {
-  return (
+  const pageQuery = getPageQuery(type);
+  const detailsQuery = getDetailsQuery(title, type);
+  return pageQuery && (
     `{
-    ${getPageQuery(type)}
-    ${getDetailsQuery(title)}
+    ${pageQuery}
+    ${detailsQuery}
     }`
   );
 };
