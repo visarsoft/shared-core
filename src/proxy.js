@@ -26,9 +26,7 @@ export default (app: Object) => {
       .post(`${API_BASE_URL}/graphql`, {
         query
       })
-      .then(apiRes => {
-        return res.status(200).send(apiRes.data);
-      })
+      .then(apiRes => res.status(200).send(apiRes.data))
       .catch(err => {
         // eslint-disable-next-line
         console.log(errorHandler(err), req.query);
