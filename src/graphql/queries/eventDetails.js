@@ -1,13 +1,13 @@
 export default `
 ... on NodeModuleEvent {
-  entityUrl {
+  url: entityUrl {
     path
   }
-  fieldLocation
-  fieldDate {
+  location: fieldLocation
+  date: fieldDate {
     value
   }
-  fieldImage
+  image: fieldImage
   body {
     value
     summary

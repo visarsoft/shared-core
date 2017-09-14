@@ -1,23 +1,23 @@
 export default `
 ... on NodePageEvents {
   title
-  fieldHeadline {
+  headline: fieldHeadline {
     value
   }
-  fieldSubheadline {
+  subHeadline: fieldSubheadline {
     value
   }
-  fieldEvents {
+  events: fieldEvents {
     ... on NodeModuleEvent {
       title
       entityUrl {
         path
       }
-      fieldLocation
-      fieldDate {
+      location: fieldLocation
+      date: fieldDate {
         value
       }
-      fieldImage
+      image: fieldImage
       body {
         value
         summary
