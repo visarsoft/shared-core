@@ -10,7 +10,7 @@ export default `
   events: fieldEvents {
     ... on NodeModuleEvent {
       title
-      entityUrl {
+      url: entityUrl {
         path
       }
       location: fieldLocation
