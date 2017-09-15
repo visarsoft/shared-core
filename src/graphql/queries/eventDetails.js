@@ -7,7 +7,13 @@ export default `
   date: fieldDate {
     value
   }
-  image: fieldImage
+  image: fieldImage {
+    url
+    alt
+    large: derivative (style: large) {
+      url
+    }
+  }
   body {
     value
     summary
