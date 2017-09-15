@@ -22,3 +22,14 @@ export const normalizeFileName = (filename: string) => {
   const extensiontPos = filename.lastIndexOf('.');
   return filename.substr(0, extensiontPos);
 };
+
+export const parseBody = (body) => {
+  const path = `${API_BASE_URL}/sites/default/files/`;
+  const regex = /src\s*=\s*"(.+?)"/;
+  const src = regex.exec(body);
+  if (!src) return body;
+  return body.replace(
+    regex,
+    `src="${path.replace('/sites/default/files/', src[1])}"`,
+  );
+};
