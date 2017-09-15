@@ -17,7 +17,6 @@ export default `
       date: fieldDate {
         value
       }
-      image: fieldImage
       body {
         value
         summary
