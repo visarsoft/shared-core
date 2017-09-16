@@ -1,11 +1,14 @@
 import eventDetails from './queries/eventDetails';
 import eventsPage from './queries/eventsPage';
+import getConfig from '../config';
 
 const getSchema = name => {
-  const schema = {
+  const defaultSchema = {
     page_events: eventsPage,
     details_events: eventDetails
   };
+  const appSchema = getConfig().GRAPHQL;
+  const schema = Object.assign({}, defaultSchema, appSchema.queries);
   return schema[name];
 };
 
