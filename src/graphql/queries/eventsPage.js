@@ -23,4 +23,17 @@ export default `
       }
     }
   }
+  aboutUs: fieldAboutUs {
+    ... on NodeModuleAboutus {
+      headline: fieldHeadline {
+        value
+      }
+      body {
+        value
+      }
+      image: fieldImage {
+        url
+      }
+    }
+  }
 }`;

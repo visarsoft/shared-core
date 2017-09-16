@@ -23,7 +23,7 @@ export const normalizeFileName = (filename: string) => {
   return filename.substr(0, extensiontPos);
 };
 
-export const parseBody = (body) => {
+export const parseBody = (body: any) => {
   const path = `${API_BASE_URL}/sites/default/files/`;
   const regex = /src\s*=\s*"(.+?)"/;
   const src = regex.exec(body);
