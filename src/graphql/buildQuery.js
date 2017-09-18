@@ -11,10 +11,7 @@ const getSchema = name => {
 };
 
 const injectVars = (query, vars) => {
-  Object.keys(vars).forEach(variable => {
-    query = query.replace(`$${variable}`, `"${vars[variable]}"`);
-    return query;
-  });
+  Object.keys(vars).forEach(variable => query.replace(`$${variable}`, `"${vars[variable]}"`));
   return query;
 };
 
