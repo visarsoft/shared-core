@@ -10,16 +10,24 @@ const getSchema = name => {
   return schema[name];
 };
 
+const injectVars = (query, vars) => {
+  Object.keys(vars).forEach(variable => {
+    query = query.replace(`$${variable}`, `"${vars[variable]}"`);
+    return query;
+  })
+  return query;
+};
+
 export default ({ type, title }) => {
   const query = getSchema(type);
   const variables = {
     type: `page_${type}`,
     title: `/${title}`
   };
+
   return query && {
-    query: `query ($type: String!, $title: String) {
-      ${query}
-      }`,
-    variables
+    query: `{
+      ${injectVars(query, variables)}
+    }`
   };
 };
