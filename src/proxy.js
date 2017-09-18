@@ -16,16 +16,14 @@ const errorHandler = error => {
 
 export default (app: Object) => {
   app.get('/api/content', (req, res) => {
-    const query = buildQuery(req.query);
-    if (!query) {
+    const queryPayload = buildQuery(req.query);
+    if (!queryPayload) {
       // eslint-disable-next-line
       console.log('failed to build schema', req.query);
       return res.status(404).send();
     }
     return axios
-      .post(`${API_BASE_URL}/graphql`, {
-        query
-      })
+      .post(`${API_BASE_URL}/graphql`, queryPayload)
       .then(apiRes => res.status(200).send(apiRes.data))
       .catch(err => {
         // eslint-disable-next-line
