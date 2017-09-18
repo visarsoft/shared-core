@@ -13,13 +13,13 @@ const getSchema = name => {
 export default ({ type, title }) => {
   const query = getSchema(type);
   const variables = {
-    type,
+    type: `page_${type}`,
     title: `/${title}`
   };
-  return query && ({
-    query: `query ($type: String!, $title: String) ) {
+  return query && {
+    query: `query ($type: String!, $title: String) {
       ${query}
       }`,
     variables
-  });
+  };
 };

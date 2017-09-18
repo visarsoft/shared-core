@@ -41,10 +41,10 @@ page: nodeQuery(filter: {type: $type}) {
     }
   }
 }
-details: route(path: "/$title") {
+details: route(path: $title) {
   entity {
-    title
     ... on NodeModuleEvent {
+      title
       url: entityUrl {
         path
       }
