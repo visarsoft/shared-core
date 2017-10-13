@@ -20,7 +20,7 @@ const getConfig = () => {
 };
 
 export default () => {
-  if (!config) {
+  if (true) {
     config = getConfig();
   }
   return config;
