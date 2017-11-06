@@ -1,11 +1,14 @@
-let config = null;
+import path from 'path';
 
+let config = null;
+const configPath = path.join(__dirname, '/../../../config/visar');
 const readAppConfig = () => {
   try {
     // eslint-disable-next-line
-    const appConfig = require('./../../../config/visar.js');
+    const appConfig = require(configPath);
     return appConfig && appConfig.default;
-  } catch (error) {
+  } catch (err) {
+    console.log('app config load failed:', configPath, err.message)
     return null;
   }
 };
@@ -20,7 +23,7 @@ const getConfig = () => {
 };
 
 export default () => {
-  if (true) {
+  if (!config) {
     config = getConfig();
   }
   return config;
