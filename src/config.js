@@ -8,7 +8,7 @@ const readAppConfig = () => {
     const appConfig = require(configPath);
     return appConfig && appConfig.default;
   } catch (err) {
-    console.log('app config load failed:', configPath, err.message)
+    console.log('app config load failed:', configPath, err.message);
     return null;
   }
 };
