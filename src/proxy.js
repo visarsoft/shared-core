@@ -15,6 +15,12 @@ const errorHandler = error => {
 };
 
 export default (app: Object) => {
+  app.get('/health', (req, res) => {
+    res.status(200).send({
+      status: 'OK',
+      env: process.env
+    });
+  });
   app.get('/api/content', (req, res) => {
     const queryPayload = buildQuery(req.query);
     if (!queryPayload) {
