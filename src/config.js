@@ -25,6 +25,10 @@ const getConfig = () => {
 export default () => {
   if (!config) {
     config = getConfig();
+    if (!config) {
+      console.log('app config not found');
+      return null;
+    }
   }
   return config;
 };

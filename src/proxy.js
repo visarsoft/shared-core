@@ -1,10 +1,10 @@
 // @flow
 
 import axios from 'axios';
+import favicon from 'serve-favicon';
 import getConfig from './config';
+import { resolveAppStaticPath } from './utils';
 import buildQuery from './graphql/buildQuery';
-
-const { API_BASE_URL } = getConfig();
 
 const errorHandler = error => {
   let { message } = error;
@@ -15,13 +15,17 @@ const errorHandler = error => {
 };
 
 export default (app: Object) => {
+  app.use(favicon(resolveAppStaticPath('favicon.ico')));
+
   app.get('/health', (req, res) => {
     res.status(200).send({
       status: 'OK',
       env: process.env
     });
   });
+
   app.get('/api/content', (req, res) => {
+    const { API_BASE_URL } = getConfig();
     const queryPayload = buildQuery(req.query);
     if (!queryPayload) {
       // eslint-disable-next-line
@@ -33,7 +37,7 @@ export default (app: Object) => {
       .then(apiRes => res.status(200).send(apiRes.data))
       .catch(err => {
         // eslint-disable-next-line
-        console.log(errorHandler(err), req.query);
+        console.log("proxy graphql error on: ", req.query, errorHandler(err));
         return res.status(500).send();
       });
   });
