@@ -1,5 +1,5 @@
 // @flow
-import path from 'path';
+import pathLib from 'path';
 import getConfig from './config';
 
 const { API_BASE_URL, STATIC_PATH } = getConfig();
@@ -9,9 +9,7 @@ export const getFetcher = (route: Object): any => {
   return (route.promise || defaultFetcher)();
 };
 
-export const resolveAppStaticPath = (filename: string) => {
-  return path.join(__dirname, `/../../..${STATIC_PATH}`, filename);
-};
+export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../..${STATIC_PATH}`, filename);
 
 export const resolveFilePath = (url: string) => {
   const path = `${API_BASE_URL}/sites/default/files/`;
