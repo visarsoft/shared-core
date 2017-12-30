@@ -20,18 +20,25 @@ const availableComponents = {
 
 class Section extends React.Component {
   props: {
-    content: any
+    content: any,
+    height: number
   };
   renderComponents() {
     const sections = [];
     const { components } = this.props.content;
     if (components) {
       components.forEach(component => {
-        if (component && component.entity) {
-          const componentContent = component;
+        const componentContent = component && component.entity;
+        if (componentContent) {
           const Component = availableComponents[componentContent.type];
           if (Component) {
-            sections.push(<Component content={componentContent} key={componentContent.title} sectionHeight={this.props.height} />);
+            sections.push(
+              <Component
+                content={componentContent}
+                key={componentContent.title}
+                sectionHeight={this.props.height}
+              />
+            );
           }
         } else {
           console.log('component not found', component);
