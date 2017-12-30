@@ -4,7 +4,6 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import getConfig from '../../config';
 import Section from '../Sections/Section';
-import withFetching from '../withFetching';
 import StyledDynamicPage from './Styled';
 
 class DynamicPage extends React.Component {
@@ -54,4 +53,4 @@ class DynamicPage extends React.Component {
   }
 }
 
-export default withFetching(DynamicPage);
+export default DynamicPage;
