@@ -1,5 +1,6 @@
 // @flow
 import pathLib from 'path';
+import { matchPath } from 'react-router-dom';
 import getConfig from './config';
 
 const { API_BASE_URL, STATIC_PATH } = getConfig();
@@ -9,6 +10,18 @@ const FILES_PATTERN = 'sites/default/files';
 export const getFetcher = (route: Object): any => {
   const defaultFetcher = () => () => Promise.resolve('DEFAULT Promise');
   return (route.promise || defaultFetcher)();
+};
+
+export const getCurrentRoute = (pathname: string, routes: any): any => {
+  let currentRoute;
+  routes.some(route => {
+    const match = matchPath(pathname, route);
+    if (match && match.isExact) {
+      currentRoute = route;
+    }
+    return match;
+  });
+  return currentRoute;
 };
 
 export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../..${STATIC_PATH}`, filename);
