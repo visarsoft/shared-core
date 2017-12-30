@@ -46,7 +46,7 @@ class Form extends React.Component {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    if (!this.props.loading && this.state) {
+    if (this.props.onSubmitRequest && !this.props.loading && this.state) {
       this.props.onSubmitRequest({
         subject: this.props.content.title,
         sender: this.state.sender,
