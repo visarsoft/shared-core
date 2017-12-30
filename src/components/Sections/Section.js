@@ -26,15 +26,15 @@ class Section extends React.Component {
     const sections = [];
     const { components } = this.props.content;
     if (components) {
-      components.forEach(content => {
-        if (content.entity) {
-          const { type, title } = content.entity;
-          const Component = availableComponents[type];
+      components.forEach(component => {
+        if (component && component.entity) {
+          const componentContent = component;
+          const Component = availableComponents[componentContent.type];
           if (Component) {
-            sections.push(<Component content={content.entity} key={title} sectionHeight={this.props.height} />);
+            sections.push(<Component content={componentContent} key={componentContent.title} sectionHeight={this.props.height} />);
           }
         } else {
-          console.log('component not found', content);
+          console.log('component not found', component);
         }
       });
     }
