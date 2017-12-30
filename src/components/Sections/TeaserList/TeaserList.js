@@ -11,14 +11,14 @@ class TeaserList extends React.Component {
           className: 'teaser'
         };
         if (teaserContent.backgroundColor) {
-          attributes.style.backgroundColor = `${teaserContent.backgroundColor.value}`;
+          attributes.style.backgroundColor = `${teaserContent.backgroundColor}`;
         }
         teasers.push((
           <div className='d-flex align-self-stretch col-md-4'>
             <div {...attributes}>
               <img src={teaserContent.image.url} alt='' />
-              <h3>{teaserContent.headline.value}</h3>
-              <div className='text-center' dangerouslySetInnerHTML={{ __html: teaserContent.body.value }} />
+              <h3>{teaserContent.headline}</h3>
+              <div className='text-center' dangerouslySetInnerHTML={{ __html: teaserContent.body }} />
               {teaserContent.link &&
                 <StyledTeaserNavLink
                   className='btn btn-default'
@@ -40,7 +40,7 @@ class TeaserList extends React.Component {
     if (this.props.content) {
       const attributes = {
         style: {
-          backgroundColor: `${this.props.content.backgroundColor && this.props.content.backgroundColor.value}`
+          backgroundColor: `${this.props.content.backgroundColor && this.props.content.backgroundColor}`
         },
         className: 'teaser-list'
       };
