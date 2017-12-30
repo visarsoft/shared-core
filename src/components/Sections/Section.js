@@ -27,10 +27,11 @@ class Section extends React.Component {
     const { components } = this.props.content;
     if (components) {
       components.forEach(content => {
-        if (content) {
-          const Component = availableComponents[content.entityBundle];
+        if (content.entity) {
+          const { type, title } = content.entity;
+          const Component = availableComponents[type];
           if (Component) {
-            sections.push(<Component content={content} key={content.title} sectionHeight={this.props.height} />);
+            sections.push(<Component content={content.entity} key={title} sectionHeight={this.props.height} />);
           }
         } else {
           console.log('component not found', content);
@@ -44,7 +45,7 @@ class Section extends React.Component {
       return (
         <div className='headline'>
           <h2 className='container'>
-            {this.props.content.headline.value}
+            {this.props.content.headline}
           </h2>
         </div>
       );
@@ -64,7 +65,7 @@ class Section extends React.Component {
       return (
         <StyledSection
           data-section={
-            this.props.content.name && this.props.content.name.value
+            this.props.content.name
           }
           style={style}
         >
