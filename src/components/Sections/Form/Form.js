@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { StyledForm } from './Styled';
 import Input from './Input';
 import Textarea from './Textarea';
 import Button from './Button';
-import { doMsRequest } from '../../../redux/user/actions';
 
 const availableElements = {
   module_form_input: Input,
@@ -30,6 +28,12 @@ class Form extends React.Component {
     }
   }
 
+  onFieldChanged(event: Event & { target: EventTarget }) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
   clearForm() {
     if (this.props.onClose) {
       this.props.onClose();
@@ -38,12 +42,6 @@ class Form extends React.Component {
       this.formEl.reset();
     }
     this.setState({});
-  }
-
-  onFieldChanged(event: Event & { target: EventTarget }) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
   }
 
   onSubmit(event: Event) {
@@ -57,6 +55,7 @@ class Form extends React.Component {
       });
     }
   }
+
   formEl: HTMLFormElement;
   clearForm: Function;
   onSubmit: Function;
@@ -114,15 +113,4 @@ class Form extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  error: state.user.rejected,
-  loading: state.user.pending
-});
-
-const mapDispatchToProps = dispatch => ({
-  onSubmitRequest: payload => {
-    dispatch(doMsRequest(payload));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;
