@@ -23,13 +23,13 @@ class DynamicPage extends React.Component {
     const sections = [];
     if (content) {
       const height = DynamicPage.getSectionHeight();
-      content.fieldSections.forEach(sectionSontent => {
-        if (sectionSontent) {
+      content.sections.forEach(sectionContent => {
+        if (sectionContent) {
           sections.push(
             <Section
               height={height}
-              content={sectionSontent}
-              key={sectionSontent.title}
+              content={sectionContent}
+              key={sectionContent.title}
             />
           );
         }

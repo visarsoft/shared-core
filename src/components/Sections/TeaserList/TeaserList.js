@@ -10,23 +10,23 @@ class TeaserList extends React.Component {
           style: {},
           className: 'teaser'
         };
-        if (teaserContent.fieldBackgroundColor) {
-          attributes.style.backgroundColor = `${teaserContent.fieldBackgroundColor.value}`;
+        if (teaserContent.backgroundColor) {
+          attributes.style.backgroundColor = `${teaserContent.backgroundColor.value}`;
         }
         teasers.push((
           <div className='d-flex align-self-stretch col-md-4'>
             <div {...attributes}>
-              <img src={teaserContent.fieldImage.url} alt='' />
-              <h3>{teaserContent.fieldHeadline.value}</h3>
+              <img src={teaserContent.image.url} alt='' />
+              <h3>{teaserContent.headline.value}</h3>
               <div className='text-center' dangerouslySetInnerHTML={{ __html: teaserContent.body.value }} />
-              {teaserContent.fieldLink &&
+              {teaserContent.link &&
                 <StyledTeaserNavLink
                   className='btn btn-default'
                   target='_blank'
-                  to={teaserContent.fieldLink.fieldTarget}
+                  to={teaserContent.link.target}
                 >
                   <i className='fa fa-external-link' aria-hidden='true' />
-                  {teaserContent.fieldLink.fieldHeadline}
+                  {teaserContent.link.headline}
                 </StyledTeaserNavLink>
               }
             </div>
@@ -40,7 +40,7 @@ class TeaserList extends React.Component {
     if (this.props.content) {
       const attributes = {
         style: {
-          backgroundColor: `${this.props.content.fieldBackgroundColor && this.props.content.fieldBackgroundColor.value}`
+          backgroundColor: `${this.props.content.backgroundColor && this.props.content.backgroundColor.value}`
         },
         className: 'teaser-list'
       };

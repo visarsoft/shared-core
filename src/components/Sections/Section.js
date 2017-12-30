@@ -24,9 +24,9 @@ class Section extends React.Component {
   };
   renderComponents() {
     const sections = [];
-    const { fieldComponents } = this.props.content;
-    if (fieldComponents) {
-      fieldComponents.forEach(content => {
+    const { components } = this.props.content;
+    if (components) {
+      components.forEach(content => {
         if (content) {
           const Component = availableComponents[content.entityBundle];
           if (Component) {
@@ -40,11 +40,11 @@ class Section extends React.Component {
     return sections;
   }
   renderHeadline() {
-    if (this.props.content.fieldHeadline) {
+    if (this.props.content.headline) {
       return (
         <div className='headline'>
           <h2 className='container'>
-            {this.props.content.fieldHeadline.value}
+            {this.props.content.headline.value}
           </h2>
         </div>
       );
@@ -57,14 +57,14 @@ class Section extends React.Component {
       if (this.props.height) {
         style.minHeight = this.props.height;
       }
-      if (this.props.content.fieldImage) {
-        style.backgroundImage = `url(${this.props.content.fieldImage.url})`;
+      if (this.props.content.image) {
+        style.backgroundImage = `url(${this.props.content.image.url})`;
       }
 
       return (
         <StyledSection
           data-section={
-            this.props.content.fieldName && this.props.content.fieldName.value
+            this.props.content.name && this.props.content.name.value
           }
           style={style}
         >
