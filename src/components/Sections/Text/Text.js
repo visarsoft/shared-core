@@ -22,9 +22,9 @@ class Text extends React.Component {
   props: Props;
   static renderMap() {
     return (
-      <div className="map-wrapper">
+      <div className='map-wrapper'>
         <Map
-          className="map"
+          className='map'
           isMarkerShown={!bowser.mobile}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${APIKEY}&v=3.exp&libraries=geometry,drawing`}
           loadingElement={<div style={{ height: '100%' }} />}
@@ -45,8 +45,8 @@ class Text extends React.Component {
           style={styles}
         >
           {Text.renderMap()}
-          <div className="text">
-            <div className="container" dangerouslySetInnerHTML={{ __html: this.props.content.body.value }} />
+          <div className='text'>
+            <div className='container' dangerouslySetInnerHTML={{ __html: this.props.content.body.value }} />
           </div>
         </StyledText>
       );

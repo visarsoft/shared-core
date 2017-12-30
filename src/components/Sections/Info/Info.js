@@ -7,12 +7,12 @@ class Info extends React.Component {
     if (this.props.content) {
       return (
         <StyledInfo>
-          <div className="container">
+          <div className='container'>
             <hr />
-            <div className="section-body" dangerouslySetInnerHTML={{ __html: this.props.content.body.value }} />
+            <div className='section-body' dangerouslySetInnerHTML={{ __html: this.props.content.body.value }} />
             {this.props.content.fieldLink &&
               <StyledNavLink
-                className="btn btn-default"
+                className='btn btn-default'
                 to={this.props.content.fieldLink.fieldTarget}
               >
                 {this.props.content.fieldLink.fieldHeadline}

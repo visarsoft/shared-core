@@ -42,8 +42,8 @@ class Section extends React.Component {
   renderHeadline() {
     if (this.props.content.fieldHeadline) {
       return (
-        <div className="headline">
-          <h2 className="container">
+        <div className='headline'>
+          <h2 className='container'>
             {this.props.content.fieldHeadline.value}
           </h2>
         </div>

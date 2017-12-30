@@ -34,19 +34,19 @@ class StageSlider extends React.Component {
       slides.push(
         <div key={content.title}>
           <div {...attributes}>
-            <div className="container">
-              <div className="box">
+            <div className='container'>
+              <div className='box'>
                 {content.fieldHeadline && (
-                  <h2 className="headline">{content.fieldHeadline.value}</h2>
+                  <h2 className='headline'>{content.fieldHeadline.value}</h2>
                 )}
                 {content.fieldSubHeadline && (
-                  <h3 className="sub-headline">
+                  <h3 className='sub-headline'>
                     {content.fieldSubHeadline.value}
                   </h3>
                 )}
                 {content.fieldLink && (
                   <StyledNavLink
-                    className="btn btn-default"
+                    className='btn btn-default'
                     to={content.fieldLink.fieldTarget}
                   >
                     {content.fieldLink.fieldHeadline}
@@ -79,7 +79,7 @@ class StageSlider extends React.Component {
       }
       return (
         <StyledSlider style={styles}>
-          <div className="stage-slider">{this.renderSlider()}</div>
+          <div className='stage-slider'>{this.renderSlider()}</div>
         </StyledSlider>
       );
     }

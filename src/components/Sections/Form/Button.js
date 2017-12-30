@@ -8,14 +8,14 @@ class Button extends React.Component {
       const { fieldType, fieldButtonText } = this.props.content;
       return (
         <StyledButton
-          className="form-group"
+          className='form-group'
           loading={this.props.loading}
         >
-          <div className="row">
-            <div className="col col-md-12 col-lg-6 offset-lg-3">
+          <div className='row'>
+            <div className='col col-md-12 col-lg-6 offset-lg-3'>
               <button
                 type={fieldType && fieldType.value}
-                className="form-control"
+                className='form-control'
               >
                 {this.props.loading
                   ? <Spinner />

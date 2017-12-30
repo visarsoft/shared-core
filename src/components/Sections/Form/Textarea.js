@@ -7,10 +7,10 @@ class Textarea extends React.Component {
       const { fieldRows, fieldName, fieldPlaceholder } = this.props.content;
       return (
         <StyledTextarea
-          className="form-group"
+          className='form-group'
         >
           <textarea
-            className="form-control form-control-lg"
+            className='form-control form-control-lg'
             rows={fieldRows && fieldRows.value}
             placeholder={fieldPlaceholder && fieldPlaceholder.value}
             name={fieldName && fieldName.value}

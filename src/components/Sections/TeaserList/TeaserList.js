@@ -14,18 +14,18 @@ class TeaserList extends React.Component {
           attributes.style.backgroundColor = `${teaserContent.fieldBackgroundColor.value}`;
         }
         teasers.push((
-          <div className="d-flex align-self-stretch col-md-4">
+          <div className='d-flex align-self-stretch col-md-4'>
             <div {...attributes}>
-              <img src={teaserContent.fieldImage.url} alt="" />
+              <img src={teaserContent.fieldImage.url} alt='' />
               <h3>{teaserContent.fieldHeadline.value}</h3>
-              <div className="text-center" dangerouslySetInnerHTML={{ __html: teaserContent.body.value }} />
+              <div className='text-center' dangerouslySetInnerHTML={{ __html: teaserContent.body.value }} />
               {teaserContent.fieldLink &&
                 <StyledTeaserNavLink
-                  className="btn btn-default"
-                  target="_blank"
+                  className='btn btn-default'
+                  target='_blank'
                   to={teaserContent.fieldLink.fieldTarget}
                 >
-                  <i className="fa fa-external-link" aria-hidden="true" />
+                  <i className='fa fa-external-link' aria-hidden='true' />
                   {teaserContent.fieldLink.fieldHeadline}
                 </StyledTeaserNavLink>
               }
@@ -46,8 +46,8 @@ class TeaserList extends React.Component {
       };
       return (
         <StyledTeaserList {...attributes}>
-          <div className="container">
-            <div className="row equal">
+          <div className='container'>
+            <div className='row equal'>
               {TeaserList.renderTeasers(this.props.content.fieldItems)}
             </div>
           </div>

@@ -88,18 +88,18 @@ class Form extends React.Component {
     if (this.props.content) {
       return (
         <StyledForm>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6 offset-md-3">
+          <div className='container'>
+            <div className='row'>
+              <div className='col-md-6 offset-md-3'>
                 <form
                   ref={el => this.formEl = el}
-                  className="contact-form"
+                  className='contact-form'
                   onSubmit={this.onSubmit}
                   onChange={this.onFieldChanged}
                 >
                   {this.renderElements()}
                   {this.props.error &&
-                    <div className="alert alert-warning" role="alert">
+                    <div className='alert alert-warning' role='alert'>
                       {this.props.error}
                     </div>
                   }

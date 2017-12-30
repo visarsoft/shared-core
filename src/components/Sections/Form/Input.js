@@ -7,13 +7,13 @@ class Input extends React.Component {
       const { fieldType, fieldName, fieldValue, fieldPlaceholder } = this.props.content;
       return (
         <StyledInput
-          className="form-group"
+          className='form-group'
         >
           <input
             type={fieldType && fieldType.value}
             name={fieldName && fieldName.value}
             defaultValue={fieldValue ? fieldValue.value : ''}
-            className="form-control form-control-lg"
+            className='form-control form-control-lg'
             placeholder={fieldPlaceholder && fieldPlaceholder.value}
           />
         </StyledInput>
