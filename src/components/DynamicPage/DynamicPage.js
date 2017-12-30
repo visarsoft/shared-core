@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import { APP_NAME } from '../../config';
+import getConfig from '../../config';
 import Section from '../Sections/Section';
 import withFetching from '../withFetching';
 import StyledDynamicPage from './Styled';
@@ -45,7 +45,7 @@ class DynamicPage extends React.Component {
     if (this.props.content) {
       return (
         <StyledDynamicPage>
-          <Helmet titleTemplate={`%s | ${APP_NAME}`} title={this.props.title} />
+          <Helmet titleTemplate={`%s | ${getConfig().APP_NAME}`} title={this.props.title} />
           <div>{DynamicPage.renderSections(this.props.content)}</div>
         </StyledDynamicPage>
       );
