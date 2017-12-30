@@ -21,14 +21,14 @@ class TeaserList extends React.Component {
                 <img src={teaserContent.image.url} alt='' />
                 <h3>{teaserContent.headline}</h3>
                 <div className='text-center' dangerouslySetInnerHTML={{ __html: teaserContent.body }} />
-                {teaserContent.link &&
+                {teaserContent.link && teaserContent.link.entity &&
                   <StyledTeaserNavLink
                     className='btn btn-default'
                     target='_blank'
-                    to={teaserContent.link.target}
+                    to={teaserContent.link.entity.target}
                   >
                     <i className='fa fa-external-link' aria-hidden='true' />
-                    {teaserContent.link.headline}
+                    {teaserContent.link.entity.headline}
                   </StyledTeaserNavLink>
                 }
               </div>
