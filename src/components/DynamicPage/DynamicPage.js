@@ -7,10 +7,9 @@ import Section from '../Sections/Section';
 import withFetching from '../withFetching';
 import StyledDynamicPage from './Styled';
 
-let height = 0;
-
 class DynamicPage extends React.Component {
   static getSectionHeight() {
+    let height = 0;
     if (typeof window !== 'undefined') {
       height =
         window.innerHeight ||
@@ -23,8 +22,9 @@ class DynamicPage extends React.Component {
     const sections = [];
     if (content) {
       const height = DynamicPage.getSectionHeight();
-      content.sections.forEach(sectionContent => {
-        if (sectionContent) {
+      content.sections.forEach(section => {
+        if (section && section.entity) {
+          const sectionContent = section.entity;
           sections.push(
             <Section
               height={height}
