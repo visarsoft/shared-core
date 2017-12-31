@@ -21,6 +21,7 @@ const availableComponents = {
 class Section extends React.Component {
   props: {
     content: any,
+    components: any,
     height: number
   };
   renderComponents() {
@@ -30,11 +31,13 @@ class Section extends React.Component {
       components.forEach(component => {
         const componentContent = component && component.entity;
         if (componentContent) {
-          const Component = availableComponents[componentContent.type];
+          const externalComponent = this.props.components ? this.props.components[componentContent.type] : {};
+          const Component = externalComponent.self || availableComponents[componentContent.type];
           if (Component) {
             sections.push(
               <Component
                 content={componentContent}
+                components={externalComponent.components}
                 key={componentContent.title}
                 sectionHeight={this.props.height}
               />

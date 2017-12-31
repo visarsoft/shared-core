@@ -17,8 +17,9 @@ class DynamicPage extends React.Component {
     }
     return height;
   }
-  static renderSections(content: any) {
+  renderSections() {
     const sections = [];
+    const content = this.props.content;
     if (content) {
       const height = DynamicPage.getSectionHeight();
       content.sections.forEach(section => {
@@ -28,6 +29,7 @@ class DynamicPage extends React.Component {
             <Section
               height={height}
               content={sectionContent}
+              components={this.props.components}
               key={sectionContent.title}
             />
           );
@@ -38,14 +40,15 @@ class DynamicPage extends React.Component {
   }
   props: {
     title: string,
-    content: any
+    content: any,
+    components: any
   };
   render() {
     if (this.props.content) {
       return (
         <StyledDynamicPage>
           <Helmet titleTemplate={`%s | ${getConfig().APP_NAME}`} title={this.props.title} />
-          <div>{DynamicPage.renderSections(this.props.content)}</div>
+          <div>{this.renderSections()}</div>
         </StyledDynamicPage>
       );
     }

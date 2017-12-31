@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyledTeaserList } from './Styled';
-import Teaser from './Teaser';
+import DefaultTeaser from './Teaser';
 
 class TeaserList extends React.Component {
-  static renderTeasers(content) {
+  renderTeasers() {
     const teasers = [];
+    const content = this.props.content && this.props.content.items;
     if (content) {
       content.forEach(teaser => {
         const teaserContent = teaser && teaser.entity;
         if (teaserContent) {
+          const Teaser = this.props.components.teaser;
           teasers.push(<Teaser content={teaserContent} key={teaserContent.title} />);
         }
       });
@@ -27,13 +29,19 @@ class TeaserList extends React.Component {
         <StyledTeaserList {...attributes}>
           <div className='container'>
             <div className='row equal'>
-              {TeaserList.renderTeasers(this.props.content.items)}
+              {this.renderTeasers()}
             </div>
           </div>
         </StyledTeaserList>
       );
     }
     return null;
+  }
+}
+
+TeaserList.defaultProps = {
+  components: {
+    teaser: DefaultTeaser
   }
 }
 
