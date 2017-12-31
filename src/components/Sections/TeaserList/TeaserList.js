@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyledTeaserList, StyledTeaserNavLink } from './Styled';
+import Teaser from './Teaser';
 
 class TeaserList extends React.Component {
   static renderTeasers(content) {
@@ -8,33 +9,9 @@ class TeaserList extends React.Component {
       content.forEach(teaser => {
         const teaserContent = teaser && teaser.entity;
         if (teaserContent) {
-          const attributes = {
-            style: {},
-            className: 'teaser'
-          };
-          if (teaserContent.backgroundColor) {
-            attributes.style.backgroundColor = `${teaserContent.backgroundColor}`;
-          }
-          teasers.push((
-            <div className='d-flex align-self-stretch col-md-4'>
-              <div {...attributes}>
-                <img src={teaserContent.image.url} alt='' />
-                <h3>{teaserContent.headline}</h3>
-                <div className='text-center' dangerouslySetInnerHTML={{ __html: teaserContent.body }} />
-                {teaserContent.link && teaserContent.link.entity &&
-                  <StyledTeaserNavLink
-                    className='btn btn-default'
-                    target='_blank'
-                    to={teaserContent.link.entity.target}
-                  >
-                    <i className='fa fa-external-link' aria-hidden='true' />
-                    {teaserContent.link.entity.headline}
-                  </StyledTeaserNavLink>
-                }
-              </div>
-            </div>
-          ));
+          return <Teaser content={teaserContent} key={teaserContent} />;
         }
+        return null;
       });
     }
     return teasers;
