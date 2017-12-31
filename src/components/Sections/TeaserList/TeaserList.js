@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledTeaserList, StyledTeaserNavLink } from './Styled';
+import { StyledTeaserList } from './Styled';
 import Teaser from './Teaser';
 
 class TeaserList extends React.Component {
@@ -9,9 +9,8 @@ class TeaserList extends React.Component {
       content.forEach(teaser => {
         const teaserContent = teaser && teaser.entity;
         if (teaserContent) {
-          return <Teaser content={teaserContent} key={teaserContent} />;
+          teasers.push(<Teaser content={teaserContent} key={teaserContent.title} />);
         }
-        return null;
       });
     }
     return teasers;
