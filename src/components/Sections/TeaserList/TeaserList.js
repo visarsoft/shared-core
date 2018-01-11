@@ -43,6 +43,6 @@ TeaserList.defaultProps = {
   components: {
     teaser: DefaultTeaser
   }
-}
+};
 
 export default TeaserList;
