@@ -53,22 +53,22 @@ text-shadow: 0 0 1px rgba(255,255,255,0.3);
 }
 &::before, &::after {
   display: inline-block;
-	opacity: 0;
-	transition: transform 0.3s, opacity 0.2s;
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.2s;
 }
 &::before {
   margin-right: 0.5rem;
-	content: '[';
-	transform: translateX(20px);
+  content: '[';
+  transform: translateX(20px);
 }
 &::after {
   margin-left: 0.5rem;
-	content: ']';
-	transform: translateX(-20px);
+  content: ']';
+  transform: translateX(-20px);
 }
 &:hover::before, &:hover::after, &:focus::before, &:focus::after {
   opacity: 1;
-	transform: translateX(0px);
+  transform: translateX(0px);
 }
 .fa-external-link {
   padding-right: 6px;

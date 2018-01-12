@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { StyledSlider } from './Styled';
+import StyledSlider from './Styled';
 import { StyledNavLink } from '../Styled';
 
 const settings = {

@@ -1,6 +1,5 @@
 import React from 'react';
 import StyledInfo from './Styled';
-import { StyledNavLink } from '../Styled';
 
 class Info extends React.Component {
   render() {

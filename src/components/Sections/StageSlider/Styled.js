@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-export const StyledSlider = styled.div`
+export default styled.div`
   display: flex;
   height: 100%;
   width: 100%;

@@ -31,7 +31,9 @@ class Section extends React.Component {
       components.forEach(component => {
         const componentContent = component && component.entity;
         if (componentContent) {
-          const externalComponent = this.props.components ? this.props.components[componentContent.type] : {};
+          const externalComponent = this.props.components ?
+            this.props.components[componentContent.type] :
+            {};
           const Component = externalComponent.self || availableComponents[componentContent.type];
           if (Component) {
             sections.push(
