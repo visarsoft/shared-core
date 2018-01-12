@@ -17,6 +17,11 @@ class DynamicPage extends React.Component {
     }
     return height;
   }
+  props: {
+    title: string,
+    content: any,
+    components: any
+  };
   renderSections() {
     const sections = [];
     const content = this.props.content;
@@ -38,11 +43,6 @@ class DynamicPage extends React.Component {
     }
     return sections;
   }
-  props: {
-    title: string,
-    content: any,
-    components: any
-  };
   render() {
     if (this.props.content) {
       return (
