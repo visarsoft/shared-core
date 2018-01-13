@@ -12,6 +12,17 @@ const availableElements = {
   module_form_button: Button
 };
 
+type Props = {
+  loading: boolean,
+  error: string,
+  onSubmitRequest: Function,
+  onClose: Function,
+  content: {
+    title: string,
+    fieldFormElements: Array<any>
+  },
+};
+
 class Form extends React.Component {
   constructor(props: any) {
     super(props);
@@ -20,14 +31,14 @@ class Form extends React.Component {
   }
 
   state: {
-
+    [string]: any
   };
+
   componentWillReceiveProps(nextProps: any) {
     if (this.props.loading && !nextProps.loading && !nextProps.error) {
       this.clearForm();
     }
   }
-
   onFieldChanged(event: Event & { target: EventTarget }) {
     this.setState({
       [event.target.name]: event.target.value
@@ -57,10 +68,10 @@ class Form extends React.Component {
   }
 
   formEl: HTMLFormElement;
+  onFieldChanged: Function;
   clearForm: Function;
   onSubmit: Function;
-  onFieldChanged: Function;
-
+  props: Props;
   renderElements() {
     const elements = [];
     const { fieldFormElements } = this.props.content;
@@ -91,7 +102,7 @@ class Form extends React.Component {
             <div className='row'>
               <div className='col-md-6 offset-md-3'>
                 <form
-                  ref={el => this.formEl = el}
+                  ref={el => { this.formEl = el; }}
                   className='contact-form'
                   onSubmit={this.onSubmit}
                   onChange={this.onFieldChanged}

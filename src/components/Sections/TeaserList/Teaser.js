@@ -1,7 +1,24 @@
 import React from 'react';
 import { StyledTeaserNavLink } from './Styled';
 
-const Teaser = props => {
+type Props = {
+  content: {
+    backgroundColor: string,
+    headline: string,
+    image: {
+      url: string
+    },
+    body: string,
+    link: {
+      entity: {
+        target: string,
+        headline: string,
+      }
+    }
+  }
+};
+
+const Teaser = (props: Props) => {
   const attributes = {
     style: {},
     className: 'teaser'

@@ -2,7 +2,18 @@ import React from 'react';
 import { StyledTeaserList } from './Styled';
 import DefaultTeaser from './Teaser';
 
+type Props = {
+  content: {
+    items: Array<any>,
+    backgroundColor: string,
+  },
+  components: Array<{
+    teaser: any
+  }>
+};
+
 class TeaserList extends React.Component {
+  props: Props;
   renderTeasers() {
     const teasers = [];
     const content = this.props.content && this.props.content.items;

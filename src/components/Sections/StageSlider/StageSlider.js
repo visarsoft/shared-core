@@ -19,6 +19,11 @@ const settings = {
   swipeToSlide: false
 };
 
+type Props = {
+  content: any,
+  sectionHeight: string
+};
+
 class StageSlider extends React.Component {
   static renderSlides(slidesContent) {
     const slides = [];
@@ -60,6 +65,8 @@ class StageSlider extends React.Component {
     });
     return slides;
   }
+
+  props: Props;
 
   renderSlider() {
     if (this.props.content.fieldSlides) {
