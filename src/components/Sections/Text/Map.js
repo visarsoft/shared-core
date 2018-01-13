@@ -75,7 +75,11 @@ const defaultOptions = {
   ]
 };
 
-const Map = props => (
+type Props = {
+  isMarkerShown: boolean,
+};
+
+const Map = (props: Props) => (
   <GoogleMap
     defaultZoom={12}
     defaultCenter={{ lat: 48.1462406, lng: 11.4218455 }}
@@ -85,7 +89,7 @@ const Map = props => (
       <Marker
         position={{ lat: 48.1462406, lng: 11.4218455 }}
         icon={{
-          path: (typeof google !== 'undefined' && google.maps.SymbolPath.CIRCLE),
+          path: (typeof window.google !== 'undefined' && window.google.maps.SymbolPath.CIRCLE),
           scale: 10,
           strokeColor: '#fff'
         }}
