@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { StyledForm } from './Styled';
 import Input from './Input';
 import Textarea from './Textarea';
@@ -23,16 +23,14 @@ type Props = {
   },
 };
 
-class Form extends React.Component {
+class Form extends React.Component<Props, {
+  [string]: any
+}> {
   constructor(props: any) {
     super(props);
     this.onFieldChanged = this.onFieldChanged.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
-  state: {
-    [string]: any
-  };
 
   componentWillReceiveProps(nextProps: any) {
     if (this.props.loading && !nextProps.loading && !nextProps.error) {
@@ -71,7 +69,6 @@ class Form extends React.Component {
   onFieldChanged: Function;
   clearForm: Function;
   onSubmit: Function;
-  props: Props;
   renderElements() {
     const elements = [];
     const { fieldFormElements } = this.props.content;

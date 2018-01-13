@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { StyledTeaserList } from './Styled';
 import DefaultTeaser from './Teaser';

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { StyledSection } from './Styled';
 import StageSlider from './StageSlider/StageSlider';
 import Info from './Info/Info';
@@ -18,12 +18,11 @@ const availableComponents = {
   module_image: Image
 };
 
-class Section extends React.Component {
-  props: {
-    content: any,
-    components: any,
-    height: number
-  };
+class Section extends React.Component<{
+  content: any,
+  components: any,
+  height: number
+}> {
   renderComponents() {
     const sections = [];
     const { components } = this.props.content;

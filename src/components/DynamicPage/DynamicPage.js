@@ -1,12 +1,16 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Helmet from 'react-helmet';
 import getConfig from '../../config';
 import Section from '../Sections/Section';
 import StyledDynamicPage from './Styled';
 
-class DynamicPage extends React.Component {
+class DynamicPage extends React.Component<{
+  title: string,
+  content: any,
+  components: any
+}> {
   static getSectionHeight() {
     let height = 0;
     if (typeof window !== 'undefined') {
@@ -17,11 +21,6 @@ class DynamicPage extends React.Component {
     }
     return height;
   }
-  props: {
-    title: string,
-    content: any,
-    components: any
-  };
   renderSections() {
     const sections = [];
     const content = this.props.content;

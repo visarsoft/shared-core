@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { getFetcher, getCurrentRoute } from '../utils';
 
 function withFetching(WrappedComponent: any, routes: any) {
-  return class extends React.Component {
+  return class extends React.Component<any> {
     componentDidMount() {
       this.fetchData();
     }
@@ -17,7 +17,6 @@ function withFetching(WrappedComponent: any, routes: any) {
         }
       }
     }
-    props: any;
     render() {
       return <WrappedComponent {...this.props} />;
     }

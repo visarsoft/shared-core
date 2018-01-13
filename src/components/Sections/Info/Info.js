@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import StyledInfo from './Styled';
 import { StyledNavLink } from '../Styled';

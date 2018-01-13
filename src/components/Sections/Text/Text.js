@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import bowser from 'bowser';
 import StyledText from './Styled';
 import Map from './Map';
@@ -18,7 +18,7 @@ type Props = {
   }
 };
 
-class Text extends React.Component {
+class Text extends React.Component<Props> {
   static renderMap() {
     return (
       <div className='map-wrapper'>
@@ -33,7 +33,6 @@ class Text extends React.Component {
       </div>
     );
   }
-  props: Props;
   render() {
     if (this.props.content) {
       const styles = {};
