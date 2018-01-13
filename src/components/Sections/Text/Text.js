@@ -19,7 +19,6 @@ type Props = {
 };
 
 class Text extends React.Component {
-  props: Props;
   static renderMap() {
     return (
       <div className='map-wrapper'>
@@ -34,6 +33,7 @@ class Text extends React.Component {
       </div>
     );
   }
+  props: Props;
   render() {
     if (this.props.content) {
       const styles = {};
