@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { withGoogleMap, GoogleMap, Marker, withScriptjs } from 'react-google-maps';
 
 const defaultOptions = {

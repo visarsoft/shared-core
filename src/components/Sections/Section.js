@@ -18,11 +18,13 @@ const availableComponents = {
   module_image: Image
 };
 
-class Section extends React.Component<{
-  content: any,
-  components: any,
-  height: number
-}> {
+class Section extends React.Component<> {
+  static defaultProps: {
+    content: any,
+    components: any,
+    height: number
+  };
+
   renderComponents() {
     const sections = [];
     const { components } = this.props.content;

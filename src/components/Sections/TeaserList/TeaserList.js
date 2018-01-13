@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { StyledTeaserList } from './Styled';
 import DefaultTeaser from './Teaser';
 
@@ -14,8 +14,7 @@ type Props = {
   }>
 };
 
-class TeaserList extends React.Component {
-  props: Props;
+class TeaserList extends React.Component<Props> {
   renderTeasers() {
     const teasers = [];
     const content = this.props.content && this.props.content.items;

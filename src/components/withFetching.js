@@ -4,7 +4,8 @@ import * as React from 'react';
 import { getFetcher, getCurrentRoute } from '../utils';
 
 function withFetching(WrappedComponent: any, routes: any) {
-  return class extends React.Component<any> {
+  return class extends React.Component<> {
+    static defaultProps: any;
     componentDidMount() {
       this.fetchData();
     }

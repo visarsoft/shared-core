@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { StyledButton } from './Styled';
 import Spinner from '.././../Spinner';
 

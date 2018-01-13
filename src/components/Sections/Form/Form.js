@@ -23,9 +23,7 @@ type Props = {
   },
 };
 
-class Form extends React.Component<Props, {
-  [string]: any
-}> {
+class Form extends React.Component<Props> {
   constructor(props: any) {
     super(props);
     this.onFieldChanged = this.onFieldChanged.bind(this);

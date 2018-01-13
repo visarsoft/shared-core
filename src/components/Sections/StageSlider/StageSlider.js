@@ -1,4 +1,6 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import Slider from 'react-slick';
 import StyledSlider from './Styled';
 import { StyledNavLink } from '../Styled';
@@ -24,7 +26,7 @@ type Props = {
   sectionHeight: string
 };
 
-class StageSlider extends React.Component {
+class StageSlider extends React.Component<Props> {
   static renderSlides(slidesContent) {
     const slides = [];
     slidesContent.forEach(content => {
@@ -65,8 +67,6 @@ class StageSlider extends React.Component {
     });
     return slides;
   }
-
-  props: Props;
 
   renderSlider() {
     if (this.props.content.fieldSlides) {
