@@ -16,7 +16,7 @@ class DynamicPage extends React.Component<Props> {
 
   static getSectionHeight() {
     let height = 0;
-    if (typeof window !== 'undefined') {
+    if (document.documentElement && document.body && typeof window !== 'undefined') {
       height =
         window.innerHeight ||
         document.documentElement.clientHeight ||
