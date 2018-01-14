@@ -87,7 +87,7 @@ class Form extends React.Component<Props> {
             <div className='row'>
               <div className='col-md-6 offset-md-3'>
                 <form
-                  ref={el => { this.formEl = el; }}
+                  ref={(el: any) => { this.formEl = el; }}
                   className='contact-form'
                   onSubmit={this.onSubmit}
                   onChange={this.onFieldChanged}
