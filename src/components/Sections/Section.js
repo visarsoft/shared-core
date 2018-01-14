@@ -25,11 +25,6 @@ type Props = {
 };
 
 class Section extends React.Component<Props> {
-  static defaultProps: {
-    content: any,
-    components: any,
-    height: number
-  };
 
   renderComponents() {
     const sections = [];
