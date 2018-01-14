@@ -35,9 +35,10 @@ class Form extends React.Component<Props> {
       this.clearForm();
     }
   }
-  onFieldChanged(event: Event & { target: EventTarget }) {
+  onFieldChanged(event: SyntheticEvent<HTMLInputElement> & { currentTarget: HTMLInputElement }) {
+    const { name, value }: { name: string, value: string } = event.currentTarget;
     this.setState({
-      [event.target.name]: event.target.value
+      [name]: value
     });
   }
 
