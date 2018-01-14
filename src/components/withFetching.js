@@ -12,7 +12,9 @@ type Props = {
   content: any
 };
 
-function withFetching(WrappedComponent: any, routes: any) {
+function withFetching(
+  WrappedComponent: React.ComponentType<Props>, routes: any
+): React.ComponentType<Props> {
   return class extends React.Component<Props, any> {
     componentDidMount() {
       this.fetchData();
