@@ -18,7 +18,13 @@ const availableComponents = {
   module_image: Image
 };
 
-class Section extends React.Component<> {
+type Props = {
+  content: any,
+  components: any,
+  height: number
+};
+
+class Section extends React.Component<Props> {
   static defaultProps: {
     content: any,
     components: any,
