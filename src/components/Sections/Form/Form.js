@@ -41,16 +41,6 @@ class Form extends React.Component<Props> {
     });
   }
 
-  clearForm() {
-    if (this.props.onClose) {
-      this.props.onClose();
-    }
-    if (this.formEl) {
-      this.formEl.reset();
-    }
-    this.setState({});
-  }
-
   onSubmit(event: Event) {
     event.preventDefault();
     if (this.props.onSubmitRequest && !this.props.loading && this.state) {
@@ -63,10 +53,10 @@ class Form extends React.Component<Props> {
     }
   }
 
-  formEl: HTMLFormElement;
   onFieldChanged: Function;
-  clearForm: Function;
   onSubmit: Function;
+  formEl: HTMLFormElement;
+  clearForm: Function;
   renderElements() {
     const elements = [];
     const { fieldFormElements } = this.props.content;

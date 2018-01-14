@@ -6,7 +6,12 @@ import getConfig from '../../config';
 import Section from '../Sections/Section';
 import StyledDynamicPage from './Styled';
 
-class DynamicPage extends React.Component<> {
+type Props = {
+  title: string,
+  content: any,
+  components: any,
+};
+class DynamicPage extends React.Component<Props> {
   static defaultProps: {
     title: string,
     content: any,
