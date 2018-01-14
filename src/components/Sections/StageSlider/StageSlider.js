@@ -27,7 +27,7 @@ type Props = {
 };
 
 class StageSlider extends React.Component<Props> {
-  static renderSlides(slidesContent) {
+  static renderSlides(slidesContent: any) {
     const slides = [];
     slidesContent.forEach(content => {
       const attributes = {

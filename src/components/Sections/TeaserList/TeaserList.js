@@ -2,16 +2,15 @@
 
 import * as React from 'react';
 import { StyledTeaserList } from './Styled';
-import DefaultTeaser from './Teaser';
 
 type Props = {
   content: {
     items: Array<any>,
     backgroundColor: string,
   },
-  components: Array<{
+  components: {
     teaser: any
-  }>
+  }
 };
 
 class TeaserList extends React.Component<Props> {
@@ -50,11 +49,5 @@ class TeaserList extends React.Component<Props> {
     return null;
   }
 }
-
-TeaserList.defaultProps = {
-  components: {
-    teaser: DefaultTeaser
-  }
-};
 
 export default TeaserList;
