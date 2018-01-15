@@ -1,10 +1,7 @@
-import eventsQuery from './queries/events';
 import getConfig from '../config';
 
 const getSchema = name => {
-  const defaultSchema = {
-    events: eventsQuery
-  };
+  const defaultSchema = {};
   const appSchema = getConfig().GRAPHQL;
   const schema = Object.assign({}, defaultSchema, appSchema.queries);
   return schema[name];
@@ -18,11 +15,13 @@ const injectVars = (query, vars) => {
   return queryWithVars;
 };
 
-export default ({ type, title }) => {
+export default ({ type, title, category }) => {
+  const appSchema = getConfig().GRAPHQL;
   const query = getSchema(type);
   const variables = {
-    type: `page_${type}`,
-    title: `/${title}`
+    type: `${appSchema.PREFIX ? `${appSchema.PREFIX}_` : ''}${type}`,
+    title,
+    category
   };
 
   return query && {
