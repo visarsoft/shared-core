@@ -41,7 +41,7 @@ class Form extends React.Component<Props, State> {
     }
   }
   onFieldChanged(event: SyntheticEvent<any> & { currentTarget: any }) {
-    const { name, value} : { name: string, value: string } = event.currentTarget.name;
+    const { name, value } : { name: string, value: string } = event.currentTarget.name;
     this.setState({
       [name]: value
     });
