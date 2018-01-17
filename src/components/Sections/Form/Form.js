@@ -19,11 +19,16 @@ type Props = {
   onClose: Function,
   content: {
     title: string,
-    fieldFormElements: Array<any>
+    elements: Array<any>
   },
 };
 
-class Form extends React.Component<Props> {
+type State = {
+  [string]: string,
+};
+
+class Form extends React.Component<Props, State> {
+  static state = {};
   constructor(props: any) {
     super(props);
     this.onFieldChanged = this.onFieldChanged.bind(this);
@@ -35,8 +40,8 @@ class Form extends React.Component<Props> {
       this.clearForm();
     }
   }
-  onFieldChanged(event: SyntheticEvent<HTMLInputElement> & { currentTarget: HTMLInputElement }) {
-    const { name, value }: { name: string, value: string } = event.currentTarget;
+  onFieldChanged(event: SyntheticEvent<any> & { currentTarget: any }) {
+    const { name, value} : { name: string, value: string } = event.currentTarget.name;
     this.setState({
       [name]: value
     });
@@ -59,26 +64,27 @@ class Form extends React.Component<Props> {
   formEl: HTMLFormElement;
   clearForm: Function;
   renderElements() {
-    const elements = [];
-    const { fieldFormElements } = this.props.content;
-    if (fieldFormElements) {
-      fieldFormElements.forEach(content => {
-        if (content) {
-          const Element = availableElements[content.entityBundle];
+    const result = [];
+    const { elements } = this.props.content;
+    if (elements) {
+      elements.forEach(({ entity }) => {
+        if (entity) {
+          const Element = availableElements[entity.entityBundle];
           if (Element) {
-            elements.push(
+            result.push(
               <Element
-                content={content}
-                key={content.title}
+                content={entity}
+                key={entity.title}
                 loading={this.props.loading}
-              />);
+              />
+            );
           }
         } else {
-          console.log('element not found', content);
+          console.log('element not found', entity);
         }
       });
     }
-    return elements;
+    return result;
   }
   render() {
     if (this.props.content) {
