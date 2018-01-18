@@ -15,7 +15,7 @@ const availableElements = {
 type Props = {
   loading: boolean,
   error: string,
-  onSubmitRequest: Function,
+  onSubmit: Function,
   onClose: Function,
   content: {
     title: string,
@@ -24,15 +24,19 @@ type Props = {
 };
 
 type State = {
-  [string]: string,
+  fields: {
+    [string]: string
+  },
 };
 
 class Form extends React.Component<Props, State> {
-  static state = {};
   constructor(props: any) {
     super(props);
     this.onFieldChanged = this.onFieldChanged.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      fields: {}
+    };
   }
 
   componentWillReceiveProps(nextProps: any) {
@@ -40,22 +44,22 @@ class Form extends React.Component<Props, State> {
       this.clearForm();
     }
   }
-  onFieldChanged(event: SyntheticEvent<any> & { currentTarget: any }) {
-    const { name, value } : { name: string, value: string } = event.currentTarget.name;
-    this.setState({
-      [name]: value
-    });
+  onFieldChanged(event: SyntheticEvent<HTMLInputElement> & { target: HTMLInputElement }) {
+    if (event.target instanceof HTMLInputElement) { 
+      const { name, value } : { name: string, value: string } = event.target;
+      const fields = Object.assign(this.state.fields, {
+        [name]: value
+      });
+      this.setState({
+        fields
+      });
+    }
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
-    if (this.props.onSubmitRequest && !this.props.loading && this.state) {
-      this.props.onSubmitRequest({
-        subject: this.props.content.title,
-        sender: this.state.sender,
-        body: `${this.state.message} \n \n Name: ${this.state
-          .senderName}`
-      });
+    if (this.props.onSubmit && !this.props.loading && this.state) {
+      this.props.onSubmit(this.state.fields);
     }
   }
 
@@ -63,6 +67,18 @@ class Form extends React.Component<Props, State> {
   onSubmit: Function;
   formEl: HTMLFormElement;
   clearForm: Function;
+
+  clearForm() {
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
+    if (this.formEl) {
+      this.formEl.reset();
+    }
+    this.setState({
+      fields: {}
+    });
+  }
   renderElements() {
     const result = [];
     const { elements } = this.props.content;

@@ -48,14 +48,15 @@ class Section extends React.Component<Props> {
           const externalComponentProps = this.getExternalComponentProps(content.type);
           const Component = externalComponentProps && externalComponentProps.self ?
             externalComponentProps.self : availableComponents[content.type];
-
+          const componentProps = externalComponentProps && externalComponentProps.props || {};
           if (Component) {
             sections.push(
               <Component
-                content={content}
                 components={externalComponentProps && externalComponentProps.components}
                 key={content.title}
                 sectionHeight={this.props.height}
+                {...componentProps}
+                content={content}
               />
             );
           }
