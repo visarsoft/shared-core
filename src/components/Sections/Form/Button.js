@@ -11,7 +11,7 @@ type Props = {
 
 const Button = (props: Props) => {
   if (props.content) {
-    const { fieldType, fieldButtonText } = props.content;
+    const { type, text } = props.content;
     return (
       <StyledButton
         className='form-group'
@@ -20,12 +20,12 @@ const Button = (props: Props) => {
         <div className='row'>
           <div className='col col-md-12 col-lg-6 offset-lg-3'>
             <button
-              type={fieldType && fieldType.value}
+              type={type}
               className='form-control'
             >
               {props.loading
                 ? <Spinner />
-                : fieldButtonText && fieldButtonText.value
+                : text
               }
             </button>
           </div>

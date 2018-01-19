@@ -9,17 +9,17 @@ type Props = {
 
 const Input = (props: Props) => {
   if (props.content) {
-    const { fieldType, fieldName, fieldValue, fieldPlaceholder } = props.content;
+    const { type, name, value, placeholder } = props.content;
     return (
       <StyledInput
         className='form-group'
       >
         <input
-          type={fieldType && fieldType.value}
-          name={fieldName && fieldName.value}
-          defaultValue={fieldValue ? fieldValue.value : ''}
+          type={type}
+          name={name}
+          defaultValue={value || ''}
           className='form-control form-control-lg'
-          placeholder={fieldPlaceholder && fieldPlaceholder.value}
+          placeholder={placeholder}
         />
       </StyledInput>
     );

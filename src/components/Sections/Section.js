@@ -20,30 +20,44 @@ const availableComponents = {
 
 type Props = {
   content: any,
-  components: any,
+  components?: {
+    [string]: {
+      self?: React.ComponentType<any>,
+      components?: [React.ComponentType<any>]
+    }
+  },
   height: number
 };
 
 class Section extends React.Component<Props> {
+
+  getExternalComponentProps(type: string) {
+    if (this.props.components && this.props.components[type]) {
+      return this.props.components[type];
+    }
+    return null;
+  }
 
   renderComponents() {
     const sections = [];
     const { components } = this.props.content;
     if (components) {
       components.forEach(component => {
-        const componentContent = component && component.entity;
-        if (componentContent) {
-          const externalComponent = this.props.components ?
-            this.props.components[componentContent.type] :
-            {};
-          const Component = externalComponent.self || availableComponents[componentContent.type];
+        const content = component && component.entity;
+        if (content) {
+          const externalComponentProps = this.getExternalComponentProps(content.type);
+          const Component = externalComponentProps && externalComponentProps.self ?
+            externalComponentProps.self : availableComponents[content.type];
+          const componentProps = externalComponentProps && externalComponentProps.props
+            ? externalComponentProps.props : {};
           if (Component) {
             sections.push(
               <Component
-                content={componentContent}
-                components={externalComponent.components}
-                key={componentContent.title}
+                components={externalComponentProps && externalComponentProps.components}
+                key={content.title}
                 sectionHeight={this.props.height}
+                {...componentProps}
+                content={content}
               />
             );
           }
