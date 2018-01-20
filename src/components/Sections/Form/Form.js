@@ -45,7 +45,7 @@ class Form extends React.Component<Props, State> {
     }
   }
   onFieldChanged(event: SyntheticEvent<HTMLInputElement> & { target: HTMLInputElement }) {
-    if (event.target instanceof HTMLInputElement) {
+    if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
       const { name, value } : { name: string, value: string } = event.target;
       const fields = Object.assign(this.state.fields, {
         [name]: value
