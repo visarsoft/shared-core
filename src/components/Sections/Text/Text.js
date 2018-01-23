@@ -43,7 +43,6 @@ class Text extends React.Component<Props> {
         <StyledText
           style={styles}
         >
-          {Text.renderMap()}
           <div className='text'>
             <div className='container' dangerouslySetInnerHTML={{ __html: this.props.content.body.value }} />
           </div>

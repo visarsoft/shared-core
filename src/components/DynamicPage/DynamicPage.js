@@ -6,10 +6,21 @@ import getConfig from '../../config';
 import Section from '../Sections/Section';
 import StyledDynamicPage from './Styled';
 
+type ContentSection = {
+  entity: {
+    title: string,
+    type: string,
+    components: Array<any>
+  }
+};
+
 type Props = {
   title: string,
-  content: any,
-  components: any,
+  content: {
+    mainSections: Array<ContentSection>,
+    sidebarSections?: Array<ContentSection>
+  },
+  components: any
 };
 
 class DynamicPage extends React.Component<Props> {
@@ -26,20 +37,24 @@ class DynamicPage extends React.Component<Props> {
     }
     return height;
   }
-  renderSections() {
+
+  static hasSidebar(sidebarSections: ?Array<ContentSection>): boolean {
+    return (sidebarSections && sidebarSections.length > 0);
+  }
+
+  renderSections(contentSections: Array<ContentSection>): Array<any> {
     const sections = [];
     const content = this.props.content;
     if (content) {
       const height = DynamicPage.getSectionHeight();
-      content.sections.forEach(section => {
-        if (section && section.entity) {
-          const sectionContent = section.entity;
+      contentSections.forEach(({ entity }) => {
+        if (entity) {
           sections.push(
             <Section
               height={height}
-              content={sectionContent}
+              content={entity}
               components={this.props.components}
-              key={sectionContent.title}
+              key={entity.title}
             />
           );
         }
@@ -47,12 +62,28 @@ class DynamicPage extends React.Component<Props> {
     }
     return sections;
   }
+
+  renderSidebar(sidebarSections: ?Array<ContentSection>) {
+    if (DynamicPage.hasSidebar(sidebarSections)) {
+      return (
+        <div className='sidebar'>{this.renderSections(sidebarSections)}</div>
+      );
+    }
+    return null;
+  }
+
   render() {
     if (this.props.content) {
+      const { mainSections, sidebarSections } = this.props.content;
       return (
-        <StyledDynamicPage>
+        <StyledDynamicPage
+          className={DynamicPage.hasSidebar(sidebarSections) ?
+            'has-sidebar' : ''
+          }
+          >
           <Helmet titleTemplate={`%s | ${getConfig().APP_NAME}`} title={this.props.title} />
-          <div>{this.renderSections()}</div>
+          <div className='main-section'>{this.renderSections(mainSections)}</div>
+          {this.renderSidebar(sidebarSections)}
         </StyledDynamicPage>
       );
     }
