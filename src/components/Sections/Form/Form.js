@@ -108,7 +108,7 @@ class Form extends React.Component<Props, State> {
         <StyledForm>
           <div className='container'>
             <div className='row'>
-              <div className='col-md-6 offset-md-3'>
+              <div className='col-md-8 offset-md-2'>
                 <form
                   ref={(el: any) => { this.formEl = el; }}
                   className='contact-form'
