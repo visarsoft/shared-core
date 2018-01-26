@@ -80,7 +80,7 @@ class DynamicPage extends React.Component<Props> {
           className={DynamicPage.hasSidebar(sidebarSections) ?
             'has-sidebar' : ''
           }
-          >
+        >
           <Helmet titleTemplate={`%s | ${getConfig().APP_NAME}`} title={this.props.title} />
           <div className='main-section'>{this.renderSections(mainSections)}</div>
           {this.renderSidebar(sidebarSections)}

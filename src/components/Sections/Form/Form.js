@@ -21,6 +21,7 @@ type Props = {
     title: string,
     elements: Array<any>
   },
+  className: string
 };
 
 type State = {
@@ -108,7 +109,7 @@ class Form extends React.Component<Props, State> {
         <StyledForm>
           <div className='container'>
             <div className='row'>
-              <div className='col-md-8 offset-md-2'>
+              <div className={this.props.className}>
                 <form
                   ref={(el: any) => { this.formEl = el; }}
                   className='contact-form'
