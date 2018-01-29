@@ -15,16 +15,16 @@ const injectVars = (query, vars) => {
   return queryWithVars;
 };
 
-const appendIncludes = (includes) => {
-  let query = ''; 
+const appendIncludes = includes => {
+  let query = '';
   includes.split(/,/).forEach(name => {
     const includesQuery = getSchema(`includes_${name}`);
     if (includesQuery) {
       query += ` ${includesQuery}`;
     }
-  })
+  });
   return query;
-}
+};
 
 export default ({ type, title, category, includes }) => {
   const appSchema = getConfig().GRAPHQL;

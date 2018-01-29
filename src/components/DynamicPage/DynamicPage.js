@@ -39,7 +39,7 @@ class DynamicPage extends React.Component<Props> {
   }
 
   static hasSidebar(sidebarSections: ?Array<ContentSection>): boolean {
-    return (sidebarSections && sidebarSections.length > 0);
+    return !!(sidebarSections && sidebarSections.length > 0);
   }
 
   renderSections(contentSections: Array<ContentSection>): Array<any> {
