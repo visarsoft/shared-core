@@ -15,14 +15,29 @@ const injectVars = (query, vars) => {
   return queryWithVars;
 };
 
-export default ({ type, title, category }) => {
+const appendIncludes = (includes) => {
+  let query = ''; 
+  includes.split(/,/).forEach(name => {
+    const includesQuery = getSchema(`includes_${name}`);
+    if (includesQuery) {
+      query += ` ${includesQuery}`;
+    }
+  })
+  return query;
+}
+
+export default ({ type, title, category, includes }) => {
   const appSchema = getConfig().GRAPHQL;
-  const query = getSchema(type);
   const variables = {
     type: `${appSchema.PREFIX ? `${appSchema.PREFIX}_` : ''}${type}`,
     title,
     category
   };
+  console.log(type, variables);
+  let query = getSchema(type);
+  if (includes) {
+    query += appendIncludes(includes);
+  }
 
   return query && {
     query: `{
