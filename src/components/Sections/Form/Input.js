@@ -19,6 +19,7 @@ const Input = (props: Props) => {
           name={name}
           defaultValue={value || ''}
           className='form-control form-control-lg'
+          required
           placeholder={placeholder}
         />
       </StyledInput>

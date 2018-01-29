@@ -16,6 +16,7 @@ const Textarea = (props: Props) => {
       >
         <textarea
           className='form-control form-control-lg'
+          required
           rows={rows}
           placeholder={placeholder}
           name={name}
