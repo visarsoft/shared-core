@@ -83,7 +83,7 @@ class Section extends React.Component<Props> {
   render() {
     if (this.props.content) {
       const style = {};
-      if (this.props.height) {
+      if (this.props.height && this.props.content.hasWindowHeight) {
         style.minHeight = this.props.height;
       }
       if (this.props.content.image) {
