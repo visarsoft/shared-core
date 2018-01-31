@@ -44,7 +44,7 @@ class Text extends React.Component<Props> {
           style={styles}
         >
           <div className='text'>
-            <div className='container' dangerouslySetInnerHTML={{ __html: this.props.content.body.value }} />
+            <div className='container' dangerouslySetInnerHTML={{ __html: this.props.content.body && this.props.content.body.value }} />
           </div>
         </StyledText>
       );
