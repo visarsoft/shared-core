@@ -26,13 +26,13 @@ export default (app: Object) => {
 
   app.get('/api/content', (req, res, next) => {
     const contentProvider = new ContentProvider(req.query);
-    debug('getting content: ', contentProvider.getCacheKey());
+    debug('Getting content', contentProvider.getCacheKey());
     contentProvider.getContent(req.get('V-Sync-Content'))
       .then(content =>
         res.status(200).send(content)
       )
       .catch(err => {
-        debug('proxy error ', req.query, errorHandler(err));
+        debug('Proxy graphql error', req.query, errorHandler(err));
         res.status(500).send(err.message);
         return next(err);
       });

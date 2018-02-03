@@ -36,7 +36,7 @@ class ContentProvider {
         return cache.then(content => {
           if (content) {
             debug('Getting content from cache', this.cacheKey);
-            return Promise.resolve(content);
+            return Promise.resolve(JSON.parse(content));
           }
           return this.fetchContent();
         });
@@ -46,7 +46,7 @@ class ContentProvider {
   }
 
   fetchContent() {
-    debug('Fetching new content', this.getCacheKey());
+    debug('Fetching new content', this.cacheKey);
     const { API_BASE_URL } = getConfig();
     const query = buildQuery({
       type: this.type,
@@ -59,7 +59,7 @@ class ContentProvider {
       .post(`${API_BASE_URL}/graphql`, query)
       .then(apiRes => {
         const content = apiRes.data;
-        setCache(this.cacheKey, content);
+        setCache(this.cacheKey, JSON.stringify(content));
         return Promise.resolve(content);
       });
   }
