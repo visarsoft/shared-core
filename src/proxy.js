@@ -28,13 +28,13 @@ export default (app: Object) => {
     const contentProvider = new ContentProvider(req.query);
     debug('getting content: ', contentProvider.getCacheKey());
     contentProvider.getContent(req.get('V-Sync-Content'))
-      .then(content => res
-        .status(200)
-        .send(JSON.parse(content)))
+      .then(content =>
+        res.status(200).send(content)
+      )
       .catch(err => {
-        debug('proxy graphql error on: ', req.query, errorHandler(err));
-        res.status(500).send();
-        return next(err.message);
+        debug('proxy error ', req.query, errorHandler(err));
+        res.status(500).send(err.message);
+        return next(err);
       });
   });
 };

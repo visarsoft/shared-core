@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getApiEndpoint } from '../utils/content';
+import getConfig from './../config';
 import { getCache, setCache } from '../utils/cache';
 import buildQuery from './graphQL';
 
@@ -9,15 +9,15 @@ const debug = require('debug')('app:content:provider');
 class ContentProvider {
   constructor(params) {
     this.type = params.type;
-    this.name = params.name;
+    this.title = params.title;
     this.includes = params.includes;
     this.setCacheKey();
   }
 
   setCacheKey() {
     let cacheKey = `content-${this.type}`;
-    if (this.name) {
-      cacheKey += `-${this.name}`;
+    if (this.title) {
+      cacheKey += `-${this.title}`;
     }
     if (this.includes) {
       cacheKey += `-${this.includes}`;
@@ -46,16 +46,17 @@ class ContentProvider {
   }
 
   fetchContent() {
-    debug('Fetching new content');
+    debug('Fetching new content', this.getCacheKey());
+    const { API_BASE_URL } = getConfig();
     const query = buildQuery({
       type: this.type,
-      title: this.name
+      title: this.title
     });
     if (!query) {
       throw new Error('Failed to build graphql schema');
     }
     return axios
-      .post(getApiEndpoint(), { query })
+      .post(`${API_BASE_URL}/graphql`, query)
       .then(apiRes => {
         const content = apiRes.data;
         setCache(this.cacheKey, content);

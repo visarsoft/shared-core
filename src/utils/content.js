@@ -24,7 +24,7 @@ export const getCurrentRoute = (pathname: string, routes: any): any => {
   return currentRoute;
 };
 
-export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../..${STATIC_PATH}`, filename);
+export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../../..${STATIC_PATH}`, filename);
 
 export const resolveFilePath = (url: string) => {
   const path = `${API_BASE_URL}/sites/default/files/`;
