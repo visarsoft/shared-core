@@ -18,7 +18,7 @@ type Props = {
   title: string,
   content: {
     mainSections: Array<ContentSection>,
-    sidebarSections?: Array<ContentSection>
+    sidebarSections: Array<ContentSection>
   },
   components: any
 };
@@ -63,7 +63,7 @@ class DynamicPage extends React.Component<Props> {
     return sections;
   }
 
-  renderSidebar(sidebarSections: ?Array<ContentSection>) {
+  renderSidebar(sidebarSections: Array<ContentSection>) {
     if (DynamicPage.hasSidebar(sidebarSections)) {
       return (
         <div className='sidebar'>{this.renderSections(sidebarSections)}</div>

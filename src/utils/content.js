@@ -1,7 +1,7 @@
 // @flow
 import pathLib from 'path';
 import { matchPath } from 'react-router-dom';
-import getConfig from './config';
+import getConfig from './../config';
 
 const { API_BASE_URL, STATIC_PATH } = getConfig();
 
@@ -51,3 +51,14 @@ export const parseBody = (body: any) => {
     `src="${path.replace(FILES_PATTERN, src[1])}"`,
   );
 };
+/*
+export const parseBody = (body: any): any => {
+  const regex = /src="\/sites\/default\/files\//g;
+  const src = regex.exec(body);
+  if (!src) return body;
+  return body.replace(
+    regex,
+    `src="${CONTENT_FILES_HOST}`,
+  );
+};
+*/
