@@ -12,7 +12,8 @@ let redisClient;
 const getClient = () => {
   if (REDIS && !redisClient) {
     redisClient = redis.createClient({
-      prefix: REDIS.prefix
+      prefix: REDIS.prefix,
+      parser: 'hiredis'
     });
   }
   return redisClient;
