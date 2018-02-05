@@ -82,19 +82,18 @@ class Section extends React.Component<Props> {
   }
   render() {
     if (this.props.content) {
+      const { name, image } = this.props.content;
       const style = {};
       if (this.props.height && this.props.content.hasWindowHeight) {
         style.minHeight = this.props.height;
       }
-      if (this.props.content.image) {
-        style.backgroundImage = `url(${this.props.content.image.url})`;
+      if (image) {
+        style.backgroundImage = `url(${image.url})`;
       }
-
       return (
         <StyledSection
-          data-section={
-            this.props.content.name
-          }
+          data-section={name}
+          className={`section ${name}`}
           style={style}
         >
           {this.renderHeadline()}

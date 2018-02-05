@@ -106,7 +106,7 @@ class Form extends React.Component<Props, State> {
   render() {
     if (this.props.content) {
       return (
-        <StyledForm>
+        <StyledForm className='form-wrapper'>
           <div className='container'>
             <div className='row'>
               <div className={this.props.className}>
