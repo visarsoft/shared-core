@@ -50,7 +50,8 @@ class ContentProvider {
     const { API_BASE_URL } = getConfig();
     const query = buildQuery({
       type: this.type,
-      title: this.title
+      title: this.title,
+      includes: this.includes
     });
     if (!query) {
       throw new Error('Failed to build graphql schema');
