@@ -2,4 +2,4 @@ export getConfig from './config';
 export proxyHandler from './proxy';
 export * from './utils';
 export * from './components';
-export default from './graphql/buildQuery';
+export default from './content/graphQL';

@@ -33,7 +33,6 @@ export default ({ type, title, category, includes }) => {
     title,
     category
   };
-  console.log(type, variables);
   let query = getSchema(type);
   if (includes) {
     query += appendIncludes(includes);

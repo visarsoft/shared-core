@@ -1,11 +1,11 @@
 // @flow
 import pathLib from 'path';
 import { matchPath } from 'react-router-dom';
-import getConfig from './config';
+import getConfig from './../config';
 
 const { API_BASE_URL, STATIC_PATH } = getConfig();
 
-const FILES_PATTERN = 'sites/default/files';
+const FILES_PATTERN = '/sites/default/files';
 
 export const getFetcher = (route: Object): any => {
   const defaultFetcher = () => () => Promise.resolve('DEFAULT Promise');
@@ -24,7 +24,7 @@ export const getCurrentRoute = (pathname: string, routes: any): any => {
   return currentRoute;
 };
 
-export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../..${STATIC_PATH}`, filename);
+export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../../..${STATIC_PATH}`, filename);
 
 export const resolveFilePath = (url: string) => {
   const path = `${API_BASE_URL}/sites/default/files/`;
@@ -42,12 +42,11 @@ export const normalizeFileName = (filename: string) => {
 };
 
 export const parseBody = (body: any) => {
-  const path = `${API_BASE_URL}/${FILES_PATTERN}/`;
-  const regex = /src\s*=\s*"(.+?)"/;
-  const src = regex.exec(body);
-  if (!src) return body;
+  const regex = new RegExp(FILES_PATTERN, 'g');
+  const found = regex.test(body);
+  if (!found) return body;
   return body.replace(
     regex,
-    `src="${path.replace(FILES_PATTERN, src[1])}"`,
+    `${API_BASE_URL}${FILES_PATTERN}`
   );
 };
