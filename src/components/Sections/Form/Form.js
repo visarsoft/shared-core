@@ -4,11 +4,13 @@ import * as React from 'react';
 import { StyledForm } from './Styled';
 import Input from './Input';
 import Textarea from './Textarea';
+import Recaptcha from './Recaptcha';
 import Button from './Button';
 
 const availableElements = {
   module_form_input: Input,
   module_form_textarea: Textarea,
+  module_form_recaptcha: Recaptcha,
   module_form_button: Button
 };
 
