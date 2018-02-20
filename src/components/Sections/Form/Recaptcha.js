@@ -55,12 +55,13 @@ class Recaptcha extends React.Component<Props, State> {
 
   render() {
     if (this.props.content && typeof document !== 'undefined') {
-      const { sitekey, size, render } = this.props.content;
+      const { sitekey, size, render, hl } = this.props.content;
       return (
         <RecaptchaLib
           sitekey={sitekey}
           size={size}
           render={render}
+          hl={hl}
           verifyCallback={this.verifyCallback}
           onloadCallback={this.onloadCallback}
         />
