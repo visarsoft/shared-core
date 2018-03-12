@@ -11,7 +11,7 @@ const injectVars = (query, vars) => {
   let queryWithVars = query;
   Object.keys(vars).forEach(variable => {
     queryWithVars = queryWithVars.replace(
-      `$${variable}`,
+      new RegExp(`\\$${variable}`, 'g'),
       `"${vars[variable]}"`
     );
   });
