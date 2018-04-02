@@ -17,14 +17,15 @@ type ContentSection = {
 type Props = {
   title: string,
   content: {
+    stageSections: Array<ContentSection>,
     mainSections: Array<ContentSection>,
-    sidebarSections: Array<ContentSection>
+    sidebarSections: Array<ContentSection>,
+    bottomSections: Array<ContentSection>
   },
   components: any
 };
 
 class DynamicPage extends React.Component<Props> {
-
   static getSectionHeight() {
     let height = 0;
     if (typeof window !== 'undefined' && window.innerHeight) {
@@ -42,23 +43,35 @@ class DynamicPage extends React.Component<Props> {
     return !!(sidebarSections && sidebarSections.length > 0);
   }
 
-  renderSections(contentSections: Array<ContentSection>): Array<any> {
+  static buildSections(
+    contentSections: Array<ContentSection>,
+    components: any
+  ): Array<any> {
     const sections = [];
+    const height = DynamicPage.getSectionHeight();
+    contentSections.forEach(({ entity }) => {
+      if (entity) {
+        sections.push(
+          <Section
+            height={height}
+            content={entity}
+            components={components}
+            key={entity.title}
+          />
+        );
+      }
+    });
+    return sections;
+  }
+
+  renderSections(contentSections: Array<ContentSection>): Array<any> {
+    let sections = [];
     const content = this.props.content;
-    if (content) {
-      const height = DynamicPage.getSectionHeight();
-      contentSections.forEach(({ entity }) => {
-        if (entity) {
-          sections.push(
-            <Section
-              height={height}
-              content={entity}
-              components={this.props.components}
-              key={entity.title}
-            />
-          );
-        }
-      });
+    if (content && contentSections) {
+      sections = DynamicPage.buildSections(
+        contentSections,
+        this.props.components
+      );
     }
     return sections;
   }
@@ -66,7 +79,7 @@ class DynamicPage extends React.Component<Props> {
   renderSidebar(sidebarSections: Array<ContentSection>) {
     if (DynamicPage.hasSidebar(sidebarSections)) {
       return (
-        <div className='sidebar'>{this.renderSections(sidebarSections)}</div>
+        <div className="sidebar">{this.renderSections(sidebarSections)}</div>
       );
     }
     return null;
@@ -74,16 +87,34 @@ class DynamicPage extends React.Component<Props> {
 
   render() {
     if (this.props.content) {
-      const { mainSections, sidebarSections } = this.props.content;
+      const {
+        mainSections,
+        sidebarSections,
+        stageSections,
+        bottomSections
+      } = this.props.content;
       return (
         <StyledDynamicPage
-          className={DynamicPage.hasSidebar(sidebarSections) ?
-            'has-sidebar' : ''
+          className={
+            DynamicPage.hasSidebar(sidebarSections) ? 'has-sidebar' : ''
           }
         >
-          <Helmet titleTemplate={`%s | ${getConfig().APP_NAME}`} title={this.props.title} />
-          <div className='main-section'>{this.renderSections(mainSections)}</div>
-          {this.renderSidebar(sidebarSections)}
+          <Helmet
+            titleTemplate={`%s | ${getConfig().APP_NAME}`}
+            title={this.props.title}
+          />
+          <div className="stage-sections">
+            {this.renderSections(stageSections)}
+          </div>
+          <div>
+            <div className="main-sections">
+              {this.renderSections(mainSections)}
+            </div>
+            {this.renderSidebar(sidebarSections)}
+          </div>
+          <div className="bottom-sections">
+            {this.renderSections(bottomSections)}
+          </div>
         </StyledDynamicPage>
       );
     }
