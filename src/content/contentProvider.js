@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import getConfig from './../config';
-import { getCache, setCache } from '../utils/cache';
+import { getCache, setCache, delCacheByPattern } from '../utils/cache';
 import buildQuery from './graphQL';
 
 const debug = require('debug')('app:content:provider');
@@ -27,6 +27,17 @@ class ContentProvider {
       cacheKey += `-${this.includes}`;
     }
     this.cacheKey = cacheKey;
+  }
+
+  getCacheKeyWithoutIncludes() {
+    let cacheKey = `content-${this.type}`;
+    if (this.language) {
+      cacheKey = `${this.language}-${cacheKey}`;
+    }
+    if (this.title) {
+      cacheKey += `-${this.title}`;
+    }
+    return cacheKey;
   }
 
   getCacheKey() {
@@ -63,7 +74,9 @@ class ContentProvider {
     }
     return axios.post(`${API_BASE_URL}/graphql`, query).then(apiRes => {
       const content = apiRes.data;
-      setCache(this.cacheKey, JSON.stringify(content));
+      delCacheByPattern(this.getCacheKeyWithoutIncludes()).then(() => {
+        setCache(this.cacheKey, JSON.stringify(content));
+      });
       return Promise.resolve(content);
     });
   }
