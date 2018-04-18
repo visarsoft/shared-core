@@ -36,7 +36,7 @@ export const delCache = key => {
 
 export const delCacheByPattern = key => {
   const client = getClient();
-  return client.keysAsync(`${client.options.prefix}${key}*`).then(keys => {
+  return client && client.keysAsync(`${client.options.prefix}${key}*`).then(keys => {
     keys.forEach(delKey => {
       client.del(delKey.replace(client.options.prefix, ''));
     });

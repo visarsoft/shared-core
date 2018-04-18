@@ -62,7 +62,7 @@ class ContentProvider {
 
   fetchContent() {
     debug('Fetching new content', this.cacheKey);
-    const { API_BASE_URL } = getConfig();
+    const { API_BASE_URL, REDIS } = getConfig();
     const query = buildQuery({
       type: this.type,
       title: this.title,
@@ -74,9 +74,11 @@ class ContentProvider {
     }
     return axios.post(`${API_BASE_URL}/graphql`, query).then(apiRes => {
       const content = apiRes.data;
-      delCacheByPattern(this.getCacheKeyWithoutIncludes()).then(() => {
-        setCache(this.cacheKey, JSON.stringify(content));
-      });
+      if (REDIS) {
+        delCacheByPattern(this.getCacheKeyWithoutIncludes()).then(() => {
+          setCache(this.cacheKey, JSON.stringify(content));
+        });
+      }
       return Promise.resolve(content);
     });
   }
