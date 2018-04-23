@@ -11,6 +11,7 @@ class ContentProvider {
     this.type = params.type;
     this.title = params.title;
     this.language = params.language;
+    this.details = params.details;
     this.includes = params.includes;
     this.setCacheKey();
   }
@@ -22,6 +23,9 @@ class ContentProvider {
     }
     if (this.title) {
       cacheKey += `-${this.title}`;
+    }
+    if (this.details) {
+      cacheKey += `-${this.details}`;
     }
     if (this.includes) {
       cacheKey += `-${this.includes}`;
@@ -36,6 +40,9 @@ class ContentProvider {
     }
     if (this.title) {
       cacheKey += `-${this.title}`;
+    }
+    if (this.details) {
+      cacheKey += `-${this.details}`;
     }
     return cacheKey;
   }
@@ -67,6 +74,7 @@ class ContentProvider {
       type: this.type,
       title: this.title,
       language: this.language,
+      details: this.details,
       includes: this.includes
     });
     if (!query) {
