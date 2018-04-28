@@ -107,7 +107,7 @@ class DynamicPage extends React.Component<Props> {
           <div className="stage-sections">
             {this.renderSections(stageSections)}
           </div>
-          <div>
+          <div className="main-content">
             <div className="main-sections">
               {this.props.children}
               {this.renderSections(mainSections)}
