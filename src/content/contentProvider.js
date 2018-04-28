@@ -10,12 +10,16 @@ class ContentProvider {
   constructor(params) {
     this.type = params.type;
     this.title = params.title;
+    this.language = params.language;
     this.includes = params.includes;
     this.setCacheKey();
   }
 
   setCacheKey() {
     let cacheKey = `content-${this.type}`;
+    if (this.language) {
+      cacheKey = `${this.language}-${cacheKey}`;
+    }
     if (this.title) {
       cacheKey += `-${this.title}`;
     }
@@ -51,18 +55,17 @@ class ContentProvider {
     const query = buildQuery({
       type: this.type,
       title: this.title,
+      language: this.language,
       includes: this.includes
     });
     if (!query) {
       throw new Error('Failed to build graphql schema');
     }
-    return axios
-      .post(`${API_BASE_URL}/graphql`, query)
-      .then(apiRes => {
-        const content = apiRes.data;
-        setCache(this.cacheKey, JSON.stringify(content));
-        return Promise.resolve(content);
-      });
+    return axios.post(`${API_BASE_URL}/graphql`, query).then(apiRes => {
+      const content = apiRes.data;
+      setCache(this.cacheKey, JSON.stringify(content));
+      return Promise.resolve(content);
+    });
   }
 }
 

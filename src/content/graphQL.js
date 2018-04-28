@@ -10,7 +10,10 @@ const getSchema = name => {
 const injectVars = (query, vars) => {
   let queryWithVars = query;
   Object.keys(vars).forEach(variable => {
-    queryWithVars = queryWithVars.replace(`$${variable}`, `"${vars[variable]}"`);
+    queryWithVars = queryWithVars.replace(
+      new RegExp(`\\$${variable}`, 'g'),
+      `"${vars[variable]}"`
+    );
   });
   return queryWithVars;
 };
@@ -26,21 +29,24 @@ const appendIncludes = includes => {
   return query;
 };
 
-export default ({ type, title, category, includes }) => {
+export default ({ type, title, category, language, includes }) => {
   const appSchema = getConfig().GRAPHQL;
   const variables = {
     type: `${appSchema.PREFIX ? `${appSchema.PREFIX}_` : ''}${type}`,
     title,
-    category
+    category,
+    language
   };
   let query = getSchema(type);
   if (includes) {
     query += appendIncludes(includes);
   }
 
-  return query && {
-    query: `{
+  return (
+    query && {
+      query: `{
       ${injectVars(query, variables)}
     }`
-  };
+    }
+  );
 };
