@@ -22,7 +22,8 @@ type Props = {
     sidebarSections: Array<ContentSection>,
     bottomSections: Array<ContentSection>
   },
-  components: any
+  components: any,
+  children: any
 };
 
 class DynamicPage extends React.Component<Props> {
@@ -106,8 +107,9 @@ class DynamicPage extends React.Component<Props> {
           <div className="stage-sections">
             {this.renderSections(stageSections)}
           </div>
-          <div>
+          <div className="main-content">
             <div className="main-sections">
+              {this.props.children}
               {this.renderSections(mainSections)}
             </div>
             {this.renderSidebar(sidebarSections)}

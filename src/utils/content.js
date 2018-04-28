@@ -7,9 +7,18 @@ const { API_BASE_URL, STATIC_PATH } = getConfig();
 
 const FILES_PATTERN = '/sites/default/files';
 
-export const getFetcher = (route: Object): any => {
+type Params = {
+  details?: string
+};
+
+type Route = {
+  promise?: Function
+};
+
+export const getFetcher = (route: Route, params: Params): any => {
   const defaultFetcher = () => () => Promise.resolve('DEFAULT Promise');
-  return (route.promise || defaultFetcher)();
+  // flow-disable-next-line
+  return (route.promise || defaultFetcher)(params);
 };
 
 export const getCurrentRoute = (pathname: string, routes: any): any => {
@@ -24,7 +33,8 @@ export const getCurrentRoute = (pathname: string, routes: any): any => {
   return currentRoute;
 };
 
-export const resolveAppStaticPath = (filename: string) => pathLib.join(__dirname, `/../../../..${STATIC_PATH}`, filename);
+export const resolveAppStaticPath = (filename: string) =>
+  pathLib.join(__dirname, `/../../../..${STATIC_PATH}`, filename);
 
 export const resolveFilePath = (url: string) => {
   const path = `${API_BASE_URL}/sites/default/files/`;
@@ -45,8 +55,5 @@ export const parseBody = (body: any) => {
   const regex = new RegExp(FILES_PATTERN, 'g');
   const found = regex.test(body);
   if (!found) return body;
-  return body.replace(
-    regex,
-    `${API_BASE_URL}${FILES_PATTERN}`
-  );
+  return body.replace(regex, `${API_BASE_URL}${FILES_PATTERN}`);
 };
