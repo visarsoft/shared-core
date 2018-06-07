@@ -25,9 +25,9 @@ export default (app: Object) => {
   });
 
   app.get('/api/content', (req, res, next) => {
-    const contentProvider = new ContentProvider(req.query);
-    debug('Getting content', contentProvider.getCacheKey());
-    contentProvider.getContent(req.get('V-Sync-Content'))
+    const contentProvider = new ContentProvider(req.query, req.get('V-Sync-Content'));
+    debug('Getting content', contentProvider.getCacheKey(true));
+    contentProvider.getContent()
       .then(content =>
         res.status(200).send(content)
       )

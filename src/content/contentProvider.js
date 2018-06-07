@@ -7,87 +7,80 @@ import buildQuery from './graphQL';
 const debug = require('debug')('app:content:provider');
 
 class ContentProvider {
-  constructor(params) {
-    this.type = params.type;
-    this.title = params.title;
-    this.language = params.language;
-    this.details = params.details;
-    this.includes = params.includes;
-    this.setCacheKey();
+  constructor(params, syncContent) {
+    const { REDIS, API_BASE_URL } = getConfig();
+    this.config = {
+      hasCaching: REDIS,
+      apiBaseUrl: API_BASE_URL
+    };
+    this.params = params;
+    this.syncContent = syncContent;
   }
 
-  setCacheKey() {
-    let cacheKey = `content-${this.type}`;
-    if (this.language) {
-      cacheKey = `${this.language}-${cacheKey}`;
+  getCacheKey(withIncludes) {
+    const { type, language, title, details, category, includes } = this.params;
+    let cacheKey = `content-${type}`;
+    if (language) {
+      cacheKey = `${language}-${cacheKey}`;
     }
-    if (this.title) {
-      cacheKey += `-${this.title}`;
+    if (title) {
+      cacheKey += `-${title}`;
     }
-    if (this.details) {
-      cacheKey += `-${this.details}`;
+    if (details) {
+      cacheKey += `-${details}`;
     }
-    if (this.includes) {
-      cacheKey += `-${this.includes}`;
+    if (category) {
+      cacheKey += `-${category}`;
     }
-    this.cacheKey = cacheKey;
-  }
-
-  getCacheKeyWithoutIncludes() {
-    let cacheKey = `content-${this.type}`;
-    if (this.language) {
-      cacheKey = `${this.language}-${cacheKey}`;
-    }
-    if (this.title) {
-      cacheKey += `-${this.title}`;
-    }
-    if (this.details) {
-      cacheKey += `-${this.details}`;
+    if (withIncludes && includes) {
+      cacheKey += `-${includes.replace(',', '')}`;
     }
     return cacheKey;
   }
 
-  getCacheKey() {
-    return this.cacheKey;
+  cacheContent(content) {
+    setCache(this.getCacheKey(true), JSON.stringify(content));
   }
 
-  getContent(syncContent) {
-    if (!syncContent) {
-      const cache = getCache(this.cacheKey);
-      if (cache) {
-        return cache.then(content => {
-          if (content) {
-            debug('Getting content from cache', this.cacheKey);
-            return Promise.resolve(JSON.parse(content));
-          }
-          return this.fetchContent();
-        });
-      }
+  getContent() {
+    if (!this.syncContent) {
+      return getCache(this.getCacheKey(true))
+      .then(content => {
+        if (content) {
+          debug('Getting content from cache');
+          return Promise.resolve(JSON.parse(content));
+        }
+        return this.fetchContent();
+      })
+      .catch(err => {
+        Promise.reject(err)
+        debug('Error on getting content from cache', err);
+      });
     }
     return this.fetchContent();
   }
 
-  fetchContent() {
-    debug('Fetching new content', this.cacheKey);
-    const { API_BASE_URL, REDIS } = getConfig();
-    const query = buildQuery({
-      type: this.type,
-      title: this.title,
-      language: this.language,
-      details: this.details,
-      includes: this.includes
-    });
-    if (!query) {
-      throw new Error('Failed to build graphql schema');
+  onContentFetch(content) {
+    if (this.config.hasCaching) {
+      if (this.syncContent) {
+        delCacheByPattern(this.getCacheKey()).then(() => {
+          this.cacheContent(content)
+        });  
+      } else this.cacheContent(content);
     }
-    return axios.post(`${API_BASE_URL}/graphql`, query).then(apiRes => {
-      const content = apiRes.data;
-      if (REDIS) {
-        delCacheByPattern(this.getCacheKeyWithoutIncludes()).then(() => {
-          setCache(this.cacheKey, JSON.stringify(content));
-        });
-      }
-      return Promise.resolve(content);
+
+    return Promise.resolve(content);
+  }
+
+  fetchContent() {
+    const cacheKeyWithIncludes = this.getCacheKey(true)
+    debug('Fetching new content', cacheKeyWithIncludes);
+    const query = buildQuery({ ...this.params });
+    if (!query) {
+      throw new Error(`Failed to build graphql schema: ${cacheKeyWithIncludes}`);
+    }
+    return axios.post(`${this.config.apiBaseUrl}/graphql`, query).then(apiRes => {
+      return this.onContentFetch(apiRes.data);
     });
   }
 }
