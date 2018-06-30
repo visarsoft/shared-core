@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import getConfig from './../config';
-import { getCache, setCache, delCacheByPattern } from '../utils/cache';
+import { getCache, setCache, delCacheByPattern, hasCacheEnabled } from '../utils/cache';
 import buildQuery from './graphQL';
 
 const debug = require('debug')('app:content:provider');
@@ -10,7 +10,7 @@ class ContentProvider {
   constructor(params, syncContent) {
     const { REDIS, API_BASE_URL } = getConfig();
     this.config = {
-      hasCaching: REDIS,
+      hasCaching: !!REDIS,
       apiBaseUrl: API_BASE_URL
     };
     this.params = params;
@@ -43,7 +43,7 @@ class ContentProvider {
   }
 
   getContent() {
-    if (!this.syncContent) {
+    if (this.config.hasCaching && !this.syncContent) {
       return getCache(this.getCacheKey(true))
       .then(content => {
         if (content) {
