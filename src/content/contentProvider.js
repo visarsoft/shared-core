@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import getConfig from './../config';
-import { getCache, setCache, delCacheByPattern, hasCacheEnabled } from '../utils/cache';
+import { getCache, setCache, delCacheByPattern } from '../utils/cache';
 import buildQuery from './graphQL';
 
 const debug = require('debug')('app:content:provider');
@@ -53,7 +53,7 @@ class ContentProvider {
         return this.fetchContent();
       })
       .catch(err => {
-        Promise.reject(err)
+        Promise.reject(err);
         debug('Error on getting content from cache', err);
       });
     }
@@ -64,8 +64,8 @@ class ContentProvider {
     if (this.config.hasCaching) {
       if (this.syncContent) {
         delCacheByPattern(this.getCacheKey()).then(() => {
-          this.cacheContent(content)
-        });  
+          this.cacheContent(content);
+        });
       } else this.cacheContent(content);
     }
 
@@ -73,15 +73,13 @@ class ContentProvider {
   }
 
   fetchContent() {
-    const cacheKeyWithIncludes = this.getCacheKey(true)
+    const cacheKeyWithIncludes = this.getCacheKey(true);
     debug('Fetching new content', cacheKeyWithIncludes);
     const query = buildQuery({ ...this.params });
     if (!query) {
       throw new Error(`Failed to build graphql schema: ${cacheKeyWithIncludes}`);
     }
-    return axios.post(`${this.config.apiBaseUrl}/graphql`, query).then(apiRes => {
-      return this.onContentFetch(apiRes.data);
-    });
+    return axios.post(`${this.config.apiBaseUrl}/graphql`, query).then(apiRes => this.onContentFetch(apiRes.data));
   }
 }
 
