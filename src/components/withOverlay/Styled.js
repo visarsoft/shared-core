@@ -23,7 +23,6 @@ export default styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 50px;
     color: white;
     background-color: white;
     width: 500px;
