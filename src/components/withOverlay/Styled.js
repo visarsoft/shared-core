@@ -39,6 +39,9 @@ export default styled.div`
       }
     }
   }
+  .overlay-headline {
+    text-align: center;
+  }
   .overlay-closeBtn {
     position: absolute;
     top: -12px;
