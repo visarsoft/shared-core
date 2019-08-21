@@ -29,8 +29,8 @@ class AdminTool extends React.PureComponent<Props> {
   render() {
     return (
       <Styled className='admin-tool'>
-        <Sync onClick={this.onSync.bind(this)} />
-        <Reset onClick={this.onReset.bind(this)} />
+        {this.props.onSync ? <Sync onClick={this.onSync.bind(this)} /> : null}
+        {this.props.onReset ? <Reset onClick={this.onReset.bind(this)} /> : null}
         <SignOut onClick={AdminTool.onLogout} />
       </Styled>
     );

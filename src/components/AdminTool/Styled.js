@@ -16,11 +16,14 @@ export default styled.div`
   flex-direction: column;
   align-items: center;
   opacity: .8;
-   .icon {
+  .icon {
     width: 30px;
     height: 30px;
     color: #0A77A8;
     margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
     &:hover {
       color: #fff;
       transition: color .5s ease;
